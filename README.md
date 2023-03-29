@@ -24,6 +24,16 @@ In terminal, run command below to switch to a new branch named `${name}`:
 git checkout -b ${name}
 ```
 
+### Pull All Updates
+
+Update local master by pulling changes that were done
+by other contributors:
+
+```
+git checkoug master
+git pull
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
