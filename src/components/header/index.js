@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, Form, redirect } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 
 const Header = () => {
   return (
