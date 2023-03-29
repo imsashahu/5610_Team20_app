@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../header-bootstrap";
+import Header from "../header";
 
 const SignupComponent = () => {
   return (
