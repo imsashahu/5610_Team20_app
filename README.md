@@ -1,6 +1,28 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Before Developing
+
+### Clone Repo to Local
+
+Clone repo to local using terminal:
+
+```
+git clone https://github.com/imsashahu/5610_Team20_app.git
+```
+
+Open the local repo code with vscode, install all dependencies specified in `package.json` by running command below in terminal:
+
+```
+npm install
+```
+
+### Develop on new branch
+
+In terminal, run command below to switch to a new branch named `${name}`:
+
+```
+git checkout -b ${name}
+```
 
 ## Available Scripts
 
