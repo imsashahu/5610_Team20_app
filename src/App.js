@@ -8,6 +8,8 @@ import Profile from "./components/profile";
 import Search from "./components/search";
 import Login from "./components/login";
 import Signup from "./components/signup";
+import SearchCourse from "./components/searchcourse/index.js";
+import axios from "axios";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,12 +20,27 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
+        path="/searchcourse"
+        element={<SearchCourse />}
+        loader={async ({ request }) => {
+          let url = new URL(request.url);
+          let searchTerm = url.searchParams.get("q");
+          console.log("searchTerm", searchTerm);
+          return axios
+            .get(`http://localhost:4001/courses/${searchTerm}`)
+            .then((res) => {
+              console.log("courses", res.data);
+              return res;
+            });
+        }}
+      />
+      {/* <Route
         path="/search"
         element={<Search />}
         loader={async ({ request }) => {
           let url = new URL(request.url);
           let searchTerm = url.searchParams.get("q")?.trim();
-          let queryParam = searchTerm.split(" ").join("+");
+          let queryParam = searchTerm?.split(" ").join("+");
           return await fetch(
             `https://openlibrary.org/search.json?q=${queryParam}`
           )
@@ -46,7 +63,7 @@ const router = createBrowserRouter(
         action={async ({ request }) => {
           return redirect(`/search`);
         }}
-      />
+      /> */}
     </>
   )
 );
