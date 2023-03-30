@@ -20,15 +20,21 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/details" element={<Details />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route
-        path="/search/*"
+        path="/search"
         element={<Search />}
-        action={({ request }) => {
+        loader={async ({ request }) => {
+          let url = new URL(request.url);
+          let searchTerm = url.searchParams.get("q");
+          console.log("q", searchTerm);
+          return searchTerm;
+        }}
+        action={async ({ request }) => {
           return redirect(`/search`);
         }}
       />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
     </>
   )
 );

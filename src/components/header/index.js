@@ -43,12 +43,12 @@ const Header = () => {
 
           <Form
             className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
-            role="search"
+            type="text"
             method="get"
             action="/search"
           >
             <input
-              // type="search"
+              type="text"
               className="form-control form-control-dark text-bg-dark"
               placeholder="Search..."
               aria-label="Search"
