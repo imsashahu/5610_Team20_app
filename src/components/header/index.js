@@ -41,7 +41,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="/searchcourse" className="nav-link px-2 text-white">
+              <Link to="/courses" className="nav-link px-2 text-white">
                 Search Course
               </Link>
             </li>

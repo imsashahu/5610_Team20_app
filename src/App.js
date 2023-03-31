@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { Route, createRoutesFromElements, RouterProvider } from "react-router";
 import Home from "./components/home";
 import Details from "./components/details";
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
-        path="/searchcourse"
+        path="/courses"
         element={<SearchCourse />}
         loader={async ({ request }) => {
           let url = new URL(request.url);

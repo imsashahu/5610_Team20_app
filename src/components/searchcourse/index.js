@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../header";
 import { useLoaderData } from "react-router-dom";
 import { Form } from "react-router-dom";
+import CourseReviewCard from "../course-review-card";
 
 const SearchCourse = () => {
   const data = useLoaderData();
@@ -11,14 +12,14 @@ const SearchCourse = () => {
     <>
       <Header />
       <div className="container">
-        <div className="fs-1 d-flex justify-content-center align-items-center mt-4">
-          NEU Seattle Campus Course Reviews
+        <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
+          <div>NEU Seattle Campus Course Reviews</div>
         </div>
         <Form
           className="col-12 col-lg-auto mt-3 mb-3 mb-lg-0 me-lg-3"
           type="text"
           method="get"
-          action="/searchcourse"
+          action="/courses"
         >
           <div className="form-floating mb-3">
             <input
@@ -33,15 +34,32 @@ const SearchCourse = () => {
           </div>
         </Form>
 
-        <div className="list-group">
-          {data.data !== null || data.data.length === 0
-            ? data.data.map((course) => (
-                <li className="list-group-item" key={course._id}>
-                  {course.courseNumber}
-                </li>
-              ))
-            : "No course found."}
-        </div>
+        {data.data !== null || data.data.length === 0 ? (
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Course Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">Professors</th>
+                <th scope="col">Average Rate</th>
+                <th scope="col">Reviews</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.data.map((course) => (
+                <tr>
+                  <th scope="row">{course.courseNumber}</th>
+                  <td>{course.courseName}</td>
+                  <td>{course.professors[0]}</td>
+                  <td>{course.averageRate}</td>
+                  <td>{course.numOfReviews}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          "No course found."
+        )}
       </div>
     </>
   );
