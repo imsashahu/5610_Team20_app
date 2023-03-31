@@ -8,7 +8,8 @@ const Header = () => {
     <header className="p-3 text-bg-dark">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a
+          {/* a svg logo */}
+          {/* <a
             href="/"
             className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
           >
@@ -19,9 +20,9 @@ const Header = () => {
               role="img"
               aria-label="Bootstrap"
             >
-              {/* <use xlink:href="#bootstrap" /> */}
+              <use xlink:href="#bootstrap" />
             </svg>
-          </a>
+          </a> */}
 
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li>
@@ -39,16 +40,21 @@ const Header = () => {
                 Profile
               </Link>
             </li>
+            <li>
+              <Link to="/courses" className="nav-link px-2 text-white">
+                Courses
+              </Link>
+            </li>
           </ul>
 
           <Form
             className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
-            role="search"
+            type="text"
             method="get"
             action="/search"
           >
             <input
-              // type="search"
+              type="text"
               className="form-control form-control-dark text-bg-dark"
               placeholder="Search..."
               aria-label="Search"
