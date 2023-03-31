@@ -42,7 +42,7 @@ const Header = () => {
             </li>
             <li>
               <Link to="/courses" className="nav-link px-2 text-white">
-                Search Course
+                Courses
               </Link>
             </li>
           </ul>

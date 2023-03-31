@@ -1,8 +1,7 @@
 import React from "react";
 import Header from "../header";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Form } from "react-router-dom";
-import CourseReviewCard from "../course-review-card";
 
 const SearchCourse = () => {
   const data = useLoaderData();
@@ -35,7 +34,7 @@ const SearchCourse = () => {
         </Form>
 
         {data.data !== null || data.data.length === 0 ? (
-          <table class="table table-hover">
+          <table className="table table-hover">
             <thead>
               <tr>
                 <th scope="col">Course Number</th>
@@ -47,8 +46,12 @@ const SearchCourse = () => {
             </thead>
             <tbody>
               {data.data.map((course) => (
-                <tr>
-                  <th scope="row">{course.courseNumber}</th>
+                <tr key={course.courseNumber}>
+                  <th scope="row">
+                    <Link to={`/courses/${course.courseNumber}`}>
+                      {course.courseNumber}
+                    </Link>
+                  </th>
                   <td>{course.courseName}</td>
                   <td>{course.professors[0]}</td>
                   <td>{course.averageRate}</td>

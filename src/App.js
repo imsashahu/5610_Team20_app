@@ -10,6 +10,7 @@ import Login from "./components/login";
 import Signup from "./components/signup";
 import SearchCourse from "./components/searchcourse/index.js";
 import axios from "axios";
+import CoursePage from "./components/course-page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,18 +21,31 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
+        path="/courses/:courseNumber"
+        element={<CoursePage />}
+        loader={async ({ params, request }) => {
+          let axiosUrl = `http://localhost:4001/courses/${params.courseNumber}`;
+          return axios.get(axiosUrl).then((res) => {
+            console.log("courses", res.data);
+            return res;
+          });
+        }}
+      />
+      <Route
         path="/courses"
         element={<SearchCourse />}
         loader={async ({ request }) => {
           let url = new URL(request.url);
           let searchTerm = url.searchParams.get("q");
           console.log("searchTerm", searchTerm);
-          return axios
-            .get(`http://localhost:4001/courses/${searchTerm}`)
-            .then((res) => {
-              console.log("courses", res.data);
-              return res;
-            });
+          let axiosUrl =
+            searchTerm === null
+              ? `http://localhost:4001/courses`
+              : `http://localhost:4001/courses/${searchTerm}`;
+          return axios.get(axiosUrl).then((res) => {
+            console.log("courses", res.data);
+            return res;
+          });
         }}
       />
       {/* <Route
