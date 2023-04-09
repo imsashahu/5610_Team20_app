@@ -11,6 +11,10 @@ import Signup from "./components/signup";
 import SearchCourse from "./components/searchcourse/index.js";
 import axios from "axios";
 import CoursePage from "./components/course-page";
+import EditProfile from "./components/profile/edit-profile";
+import { Provider } from "react-redux";
+import profileReducer from "./components/profile/profile-reducer.js";
+import { configureStore } from "@reduxjs/toolkit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +52,7 @@ const router = createBrowserRouter(
           });
         }}
       />
+      <Route path="/profile/edit-profile" element={<EditProfile />} />
       {/* <Route
         path="/search"
         element={<Search />}
@@ -82,10 +87,18 @@ const router = createBrowserRouter(
   )
 );
 
+const store = configureStore({
+  reducer: {
+    profile: profileReducer,
+  },
+});
+
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </>
   );
 }
