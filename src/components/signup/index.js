@@ -1,10 +1,21 @@
 import React, {useState} from "react";
 import Header from "../header";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignupComponent = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const signUp = () => {
+    if(password === "") {
+      toast("Password is required.");
+    }
+    if (password != repeatPassword) {
+      console.log("password not match")
+      toast("The passwords don't match");
+    }
+  }
   return (
     <>
       <Header />
@@ -42,9 +53,10 @@ const SignupComponent = () => {
             }}
         />
       </div>
-      <button className="btn btn-primary">
+      <button onClick={signUp} className="btn btn-primary">
         Sign up!
       </button>
+      <ToastContainer />
     </>
   );
 };
