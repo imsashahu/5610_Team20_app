@@ -5,7 +5,11 @@ const HomeComponent = () => {
   return (
     <>
       <Header />
-      <h4>Home</h4>
+      <div className="container">
+        <div className="fw-bold mt-2 mb-5">
+          <h3>Home</h3>
+        </div>
+      </div>
     </>
   );
 };

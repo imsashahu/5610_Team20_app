@@ -5,7 +5,11 @@ const DetailsComponent = () => {
   return (
     <>
       <Header />
-      <h4>Details</h4>
+      <div className="container">
+        <div className="fw-bold mt-2 mb-5">
+          <h3>Details</h3>
+        </div>
+      </div>{" "}
     </>
   );
 };
