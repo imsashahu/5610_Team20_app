@@ -2,8 +2,13 @@ import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Form } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logoutThunk} from "../../services/users/users-thunks";
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
   return (
     <header className="p-3 text-bg-dark">
       <div className="container">
@@ -63,16 +68,37 @@ const Header = () => {
           </Form>
 
           <div className="text-end">
-            <Link
-              type="button"
-              className="btn btn-outline-light me-2"
-              to="/login"
+            {!currentUser && (<Link
+                type="button"
+                className="btn btn-outline-light me-2"
+                to="/login"
             >
               Login
-            </Link>
-            <Link type="button" className="btn btn-warning" to="/signup">
+            </Link>)}
+            {!currentUser && (<Link type="button" className="btn btn-warning" to="/signup">
               Sign-up
-            </Link>
+            </Link>)}
+            {currentUser && (<button
+                className="btn btn-danger"
+                onClick={() => {
+                  dispatch(logoutThunk());
+                  // navigate("/login");
+                }}
+            >
+              Logout
+            </button>)}
+
+
+            {/*<Link*/}
+            {/*  type="button"*/}
+            {/*  className="btn btn-outline-light me-2"*/}
+            {/*  to="/login"*/}
+            {/*>*/}
+            {/*  Login*/}
+            {/*</Link>*/}
+            {/*<Link type="button" className="btn btn-warning" to="/signup">*/}
+            {/*  Sign-up*/}
+            {/*</Link>*/}
           </div>
         </div>
       </div>
