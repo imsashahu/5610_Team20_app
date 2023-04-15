@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerThunk } from "../../services/users/users-thunks";
+import { useNavigate } from "react-router-dom";
 
 const SignupComponent = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -13,6 +14,7 @@ const SignupComponent = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/; // Email should follow this rule
+  const navigate = useNavigate();
 
   const signUp = () => {
     if (password === "") {
@@ -26,7 +28,8 @@ const SignupComponent = () => {
     } else {
       try {
         dispatch(registerThunk({ username, password, email }));
-        // navigate("/profile");
+        // toast("Signed up successfully!")
+        navigate("/profile");
       } catch (err) {
         console.log(err);
       }
@@ -39,6 +42,15 @@ const SignupComponent = () => {
       <div className="container">
         <div className="fw-bold mt-2 mb-5">
           <h3>Sign Up</h3>
+        </div>
+        <div className="form-group">
+          <label>Role</label><br/>
+          <select className={"form-control"}>
+            <option value="faculty">FACULTY</option>
+            <option selected value="student">
+              STUDENT</option>
+
+          </select>
         </div>
         <div className="form-group">
           <label>Email</label>

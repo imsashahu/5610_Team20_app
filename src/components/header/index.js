@@ -1,14 +1,14 @@
 import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, Form } from "react-router-dom";
+import {Link, Form, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutThunk} from "../../services/users/users-thunks";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <header className="p-3 text-bg-dark">
       <div className="container">
@@ -41,9 +41,9 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="/profile" className="nav-link px-2 text-white">
+              {currentUser && (<Link to="/profile" className="nav-link px-2 text-white">
                 Profile
-              </Link>
+              </Link>)}
             </li>
             <li>
               <Link to="/courses" className="nav-link px-2 text-white">
@@ -82,7 +82,7 @@ const Header = () => {
                 className="btn btn-danger"
                 onClick={() => {
                   dispatch(logoutThunk());
-                  // navigate("/login");
+                  navigate("/");
                 }}
             >
               Logout

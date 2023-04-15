@@ -5,17 +5,19 @@ import { loginThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {Link, useNavigate} from "react-router-dom";
 
 const LoginComponent = () => {
   const { currentUser } = useSelector((state) => state.users);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const login = () => {
     try {
       dispatch(loginThunk({ username, password }));
       toast("Logged in successfully!");
-      // navigate("/profile");
+      navigate("/");
     } catch (err) {
       console.log("error");
       console.log(err);
@@ -59,7 +61,7 @@ const LoginComponent = () => {
 
         </div>
         <div className={"d-flex justify-content-center text-secondary"}>
-          Don't have an account? Click Sign-up!
+          Don't have an account? <Link to="/signup">Click Sign-up!</Link>
         </div>
         <br/>
         <div>
