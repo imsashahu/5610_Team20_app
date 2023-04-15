@@ -12,12 +12,17 @@ const SignupComponent = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/; // Email should follow this rule
+
   const signUp = () => {
     if (password === "") {
       toast("Password is required.");
     } else if (password != repeatPassword) {
       console.log("password not match");
       toast("The passwords don't match");
+    } else if (!emailRegExp.test(email)) {
+      console.log("email format does not follow");
+      toast("The email does not follow");
     } else {
       try {
         dispatch(registerThunk({ username, password, email }));
@@ -27,6 +32,7 @@ const SignupComponent = () => {
       }
     }
   };
+
   return (
     <>
       <Header />

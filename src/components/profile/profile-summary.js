@@ -3,18 +3,16 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBook,
-  faBookOpen,
-  faCalendar,
+  faPaperPlane,
   faHeart,
   faMagnifyingGlassArrowRight,
-  faNoteSticky,
   faThumbsUp,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ProfileSummaryItem = () => {
-  const profile = useSelector((state) => state.profile);
+  const { currentUser } = useSelector((state) => state.users);
+  console.log("currentUser", currentUser);
 
   return (
     <>
@@ -27,53 +25,36 @@ const ProfileSummaryItem = () => {
                 style={{ color: "rgb(228, 161, 27)" }}
               />
             </span>
-            {profile.firstName} {profile.lastName}
+            {currentUser ? currentUser.role : "Undefined"}{" "}
           </h3>
+          <h4 className="card-title">
+            <span className="me-2 mt-5">
+              <FontAwesomeIcon
+                icon={faMagnifyingGlassArrowRight}
+                style={{ color: "rgb(228, 161, 27)" }}
+              />
+            </span>
+            @{currentUser ? currentUser.username : "Undefined"}
+          </h4>
           <div className="d-flex justify-content-between align-items-center">
-            <h5 className="card-title">
-              <span className="me-3 mt-5">
+            <h4 className="card-title">
+              <span className="me-2 mt-5">
                 <FontAwesomeIcon
-                  icon={faMagnifyingGlassArrowRight}
+                  icon={faPaperPlane}
                   style={{ color: "rgb(228, 161, 27)" }}
                 />
               </span>
-              {profile.handle}
-            </h5>
+              {currentUser ? currentUser.email : "Undefined"}
+            </h4>
             <Link
               to="/profile/edit-profile"
               type="button"
-              className="btn btn-warning me-2"
+              className="btn btn-warning"
             >
-              Edit
+              Edit Email
             </Link>
           </div>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <b>Bio</b>{" "}
-            <FontAwesomeIcon
-              icon={faNoteSticky}
-              style={{ color: "rgb(228, 161, 27)" }}
-            />{" "}
-            {profile.bio}
-          </li>
-          <li class="list-group-item">
-            <b>DOB</b>{" "}
-            <FontAwesomeIcon
-              icon={faCalendar}
-              style={{ color: "rgb(228, 161, 27)" }}
-            />{" "}
-            {profile.dateOfBirth}
-          </li>
-          <li class="list-group-item">
-            <b>Major</b>{" "}
-            <FontAwesomeIcon
-              icon={faBookOpen}
-              style={{ color: "rgb(228, 161, 27)" }}
-            />{" "}
-            {profile.major}
-          </li>
-        </ul>
       </div>
 
       <div className="card container">

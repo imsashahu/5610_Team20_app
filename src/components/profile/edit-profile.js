@@ -1,30 +1,39 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import {
-  editFirstName,
-  editLastName,
-  editBio,
-  editDOB,
-} from "../profile/profile-reducer.js";
+import { redirect, Link, useNavigate } from "react-router-dom";
 import Header from "../header/index.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { updateUserThunk } from "../../services/users/users-thunks";
+import { Alert } from "bootstrap";
 
 const EditProfile = () => {
-  const profile = useSelector((state) => state.profile);
-
-  const [firstName, setFirstName] = useState(profile.firstName);
-  const [lastName, setLastName] = useState(profile.lastName);
-  const [bio, setBio] = useState(profile.bio);
-  const [dob, setDob] = useState(profile.dateOfBirth);
-
+  const { currentUser } = useSelector((state) => state.users);
+  console.log("currentUser", currentUser);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
 
+  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/;
+
   const onClickSaveHandler = () => {
-    dispatch(editFirstName(firstName));
-    console.log("first name", firstName);
-    dispatch(editLastName(lastName));
-    dispatch(editBio(bio));
-    dispatch(editDOB(dob));
+    if (emailRegExp.test(email)) {
+      try {
+        const newUser = { ...currentUser, email: email };
+        console.log("saving");
+        console.log("new user", newUser);
+        console.log("email", email);
+        dispatch(updateUserThunk(newUser));
+        toast("Save successfully :)");
+      } catch (err) {
+        console.log("error");
+        console.log(err);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      }
+    } else {
+      toast("Not a valid email format.");
+    }
   };
 
   return (
@@ -39,7 +48,7 @@ const EditProfile = () => {
           </div>
           <div className="w-auto mt-2">
             <div className="fw-bold">
-              <h3>Edit Profile</h3>
+              <h3>Edit Email</h3>
             </div>
           </div>
           <div className="w-auto mt-2">
@@ -47,7 +56,6 @@ const EditProfile = () => {
               type="button"
               className="btn btn-warning me-2"
               style={{ width: "fit-content" }}
-              to="/profile"
               onClick={() => onClickSaveHandler()}
             >
               Save
@@ -58,48 +66,19 @@ const EditProfile = () => {
         <div className="pt-3">
           <div className="form-floating mb-3">
             <input
-              type="text"
+              type="email"
               className="form-control"
-              id="floatingName"
+              id="changeEmail"
               placeholder="Please enter name"
-              value={firstName + " " + lastName}
+              value={email}
               onChange={(e) => {
-                const [first, last] = e.target.value.split(" ");
-                console.log(e.target.value.split(" "));
-                setFirstName(first);
-                setLastName(last);
+                setEmail(e.target.value);
               }}
             />
-            <label for="floatingName">Name</label>
-          </div>
-
-          <div class="form-floating mb-3">
-            <textarea
-              className="form-control h-auto"
-              placeholder="Leave a biography here"
-              id="floatingBio"
-              value={bio}
-              onChange={(e) => {
-                setBio(e.target.value);
-              }}
-            ></textarea>
-            <label for="floatingBio">Bio</label>
-          </div>
-
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              id="floatingDOB"
-              placeholder="Please enter DOB"
-              value={dob}
-              onChange={(e) => {
-                setDob(e.target.value);
-              }}
-            />
-            <label for="floatingDOB">Birth date</label>
+            <label htmlFor="changeEmail">Email</label>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
