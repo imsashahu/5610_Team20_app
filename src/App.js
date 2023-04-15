@@ -5,6 +5,7 @@ import { Route, createRoutesFromElements, RouterProvider } from "react-router";
 import Home from "./components/home";
 import Details from "./components/details";
 import Profile from "./components/profile";
+import ProfileUID from "./components/profile-uid";
 import Search from "./components/search";
 import Login from "./components/login";
 import Signup from "./components/signup";
@@ -22,6 +23,18 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/details" element={<Details />} />
       <Route path="/profile" element={<Profile />} />
+      <Route
+        path="/profile/:uid"
+        element={<ProfileUID />}
+        loader={async ({ params, request }) => {
+          console.log("uid", params.uid);
+          let axiosUrl = `http://localhost:4001/api/users/id/${params.uid}`;
+          return axios.get(axiosUrl).then((res) => {
+            console.log("UID", res.data);
+            return res;
+          });
+        }}
+      />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
