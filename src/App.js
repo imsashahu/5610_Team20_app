@@ -13,9 +13,8 @@ import axios from "axios";
 import CoursePage from "./components/course-page";
 import EditProfile from "./components/profile/edit-profile";
 import { Provider } from "react-redux";
-import profileReducer from "./components/profile/profile-reducer.js";
 import { configureStore } from "@reduxjs/toolkit";
-import usersReducer from "./reducers/users-reducer"
+import usersReducer from "./reducers/users-reducer";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -90,7 +89,6 @@ const router = createBrowserRouter(
 
 const store = configureStore({
   reducer: {
-    profile: profileReducer,
     users: usersReducer,
   },
 });
