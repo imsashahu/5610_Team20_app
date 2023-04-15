@@ -1,17 +1,17 @@
 import React from "react";
 import Header from "../header";
+import LocalItem from "./local-item";
 
 const DetailsComponent = () => {
-  return (
-    <>
-      <Header />
-      <div className="container">
-        <div className="fw-bold mt-2 mb-5">
-          <h3>Details</h3>
-        </div>
-      </div>{" "}
-    </>
-  );
+    return (
+        <>
+            <Header />
+            <h4>Details</h4>
+            <div className="row mt-2">
+                <LocalItem/>
+            </div>
+        </>
+    );
 };
 
 export default DetailsComponent;
