@@ -48,7 +48,7 @@ const SearchCourse = () => {
               {data.data.map((course) => (
                 <tr key={course.courseNumber}>
                   <th scope="row">
-                    <Link to={`/courses/${course.courseNumber}`}>
+                    <Link to={`/details/${course.courseNumber}`}>
                       {course.courseNumber}
                     </Link>
                   </th>
