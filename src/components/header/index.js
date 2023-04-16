@@ -49,21 +49,6 @@ const Header = () => {
             </li>
           </ul>
 
-          <Form
-            className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
-            type="text"
-            method="get"
-            action="/search"
-          >
-            <input
-              type="text"
-              className="form-control form-control-dark text-bg-dark"
-              placeholder="Search..."
-              aria-label="Search"
-              name="q"
-            />
-          </Form>
-
           <div className="text-end">
             {!currentUser && (
               <Link
