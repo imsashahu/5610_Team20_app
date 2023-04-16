@@ -38,7 +38,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
-        path="/courses/:courseNumber"
+        path="/details/:courseNumber"
         element={<CoursePage />}
         loader={async ({ params, request }) => {
           let axiosUrl = `http://localhost:4001/courses/${params.courseNumber}`;
@@ -49,7 +49,7 @@ const router = createBrowserRouter(
         }}
       />
       <Route
-        path="/courses"
+        path="/search"
         element={<SearchCourse />}
         loader={async ({ request }) => {
           let url = new URL(request.url);

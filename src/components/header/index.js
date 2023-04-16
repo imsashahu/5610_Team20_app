@@ -1,9 +1,9 @@
 import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Link, Form, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {logoutThunk} from "../../services/users/users-thunks";
+import { Link, Form, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutThunk } from "../../services/users/users-thunks";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -36,18 +36,15 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="/details" className="nav-link px-2 text-white">
-                Details
-              </Link>
+              {currentUser && (
+                <Link to="/profile" className="nav-link px-2 text-white">
+                  Profile
+                </Link>
+              )}
             </li>
             <li>
-              {currentUser && (<Link to="/profile" className="nav-link px-2 text-white">
-                Profile
-              </Link>)}
-            </li>
-            <li>
-              <Link to="/courses" className="nav-link px-2 text-white">
-                Courses
+              <Link to="/search" className="nav-link px-2 text-white">
+                Search Course Reviews
               </Link>
             </li>
           </ul>
@@ -68,26 +65,31 @@ const Header = () => {
           </Form>
 
           <div className="text-end">
-            {!currentUser && (<Link
+            {!currentUser && (
+              <Link
                 type="button"
                 className="btn btn-outline-light me-2"
                 to="/login"
-            >
-              Login
-            </Link>)}
-            {!currentUser && (<Link type="button" className="btn btn-warning" to="/signup">
-              Sign-up
-            </Link>)}
-            {currentUser && (<button
+              >
+                Login
+              </Link>
+            )}
+            {!currentUser && (
+              <Link type="button" className="btn btn-warning" to="/signup">
+                Sign-up
+              </Link>
+            )}
+            {currentUser && (
+              <button
                 className="btn btn-danger"
                 onClick={() => {
                   dispatch(logoutThunk());
                   navigate("/");
                 }}
-            >
-              Logout
-            </button>)}
-
+              >
+                Logout
+              </button>
+            )}
 
             {/*<Link*/}
             {/*  type="button"*/}
