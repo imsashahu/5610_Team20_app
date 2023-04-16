@@ -1,17 +1,27 @@
 import React from "react";
 import Header from "../header";
+import LocalItem from "./local-item";
 
 const DetailsComponent = () => {
-  return (
-    <>
-      <Header />
-      <div className="container">
-        <div className="fw-bold mt-2 mb-5">
-          <h3>Details</h3>
-        </div>
-      </div>{" "}
-    </>
-  );
+    return (
+        <>
+            <Header />
+            <div className="row mt-2">
+                {/*left place holder*/}
+                <div className="col-1 col-md-2 col-lg-3 col-xl-3">
+
+                </div>
+
+                {/*content in the middle*/}
+                <LocalItem/>
+
+                {/*right place holder*/}
+                <div className="col-1 col-md-2 col-lg-3 col-xl-3">
+
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default DetailsComponent;
