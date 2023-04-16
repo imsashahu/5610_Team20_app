@@ -23,10 +23,13 @@ const CoursePage = () => {
       <div className="container">
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
           <div>{`Course ${courseNumber} - ${courseName}`}</div>
+          <button className="btn btn-outline-primary">Edit</button>
         </div>
+
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
           <button className="btn btn-outline-primary">Leave a Review</button>
         </div>
+
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
             <div>Be the first one to review course {courseNumber}</div>

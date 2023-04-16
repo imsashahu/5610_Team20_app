@@ -37,25 +37,50 @@ const SearchCourse = () => {
           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Course Number</th>
-                <th scope="col">Name</th>
-                <th scope="col">Professors</th>
-                <th scope="col">Average Rate</th>
-                <th scope="col">Reviews</th>
+                <th className="text-center align-middle" scope="col">
+                  Course Number
+                </th>
+                <th className="text-center align-middle" scope="col">
+                  Name
+                </th>
+                <th className="text-center align-middle" scope="col">
+                  Professors
+                </th>
+                <th className="text-center align-middle" scope="col">
+                  Average Rate
+                </th>
+                <th className="text-center align-middle" scope="col">
+                  Reviews
+                </th>
+                {/* <th className="text-center align-middle" scope="col"></th> */}
               </tr>
             </thead>
             <tbody>
               {data.data.map((course) => (
                 <tr key={course.courseNumber}>
-                  <th scope="row">
+                  <th className="text-center align-middle" scope="row">
                     <Link to={`/courses/${course.courseNumber}`}>
                       {course.courseNumber}
                     </Link>
                   </th>
-                  <td>{course.courseName}</td>
-                  <td>{course.professors[0]}</td>
-                  <td>{course.averageRate}</td>
-                  <td>{course.numOfReviews}</td>
+                  <td className="text-center align-middle text-truncate">
+                    {course.courseName}
+                  </td>
+                  <td className="text-center align-middle">
+                    {course.professors[0]}
+                  </td>
+                  <td className="text-center align-middle">
+                    {course.averageRate}
+                  </td>
+                  <td className="text-center align-middle">
+                    {course.numOfReviews}
+                  </td>
+                  {/* <td className="text-center align-middle">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <button className="btn btn-primary">Edit</button>
+                      <button className="btn btn-danger ms-2">Delete</button>
+                    </div>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
