@@ -16,6 +16,7 @@ import EditProfile from "./components/profile/edit-profile";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
+import AddReview from "./components/add-review";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +49,7 @@ const router = createBrowserRouter(
           });
         }}
       />
+      <Route path="details/:courseNumber/add-review" element={<AddReview />} />
       <Route
         path="/search"
         element={<SearchCourse />}

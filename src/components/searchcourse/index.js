@@ -29,7 +29,7 @@ const SearchCourse = () => {
               aria-label="Search"
               name="q"
             />
-            <label htmlFor="course">Search Course</label>
+            <label htmlFor="course">Search Course by Course Number</label>
           </div>
         </Form>
 

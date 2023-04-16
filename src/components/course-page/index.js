@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Header from "../header";
 import ReviewCard from "../review-card";
 
@@ -25,7 +25,12 @@ const CoursePage = () => {
           <div>{`Course ${courseNumber} - ${courseName}`}</div>
         </div>
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-          <button className="btn btn-outline-primary">Leave a Review</button>
+          <Link
+            to={`/details/${courseNumber}/add-review`}
+            className="btn btn-outline-primary"
+          >
+            Leave a Review
+          </Link>
         </div>
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
