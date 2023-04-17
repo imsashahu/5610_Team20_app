@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "../header";
 import { Link, useLocation } from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {profileThunk} from "../../services/users/users-thunks";
 
 const AddReview = () => {
+  const dispatch = useDispatch();
+  useEffect(()=> {dispatch(profileThunk());
+  },[]);
   const path = useLocation().pathname;
   const lastSlashIndex = path.lastIndexOf("/");
   const prePath = path.substring(0, lastSlashIndex);

@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Header from "../header";
 import ReviewCard from "../review-card";
+import {useDispatch} from "react-redux";
+import {profileThunk} from "../../services/users/users-thunks";
 
 const CoursePage = () => {
+  const dispatch = useDispatch();
+  useEffect(()=> {dispatch(profileThunk());
+  },[]);
   const data = useLoaderData();
   const courseInfo = data.data[0];
   const {

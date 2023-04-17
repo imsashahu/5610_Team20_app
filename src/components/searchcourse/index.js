@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "../header";
 import { Link, useLoaderData } from "react-router-dom";
 import { Form } from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {profileThunk} from "../../services/users/users-thunks";
 
 const SearchCourse = () => {
   const data = useLoaderData();
   console.log("SearchCourse data", data);
-
+  const dispatch = useDispatch();
+  useEffect(()=> {dispatch(profileThunk());
+  },[]);
   return (
     <>
       <Header />
