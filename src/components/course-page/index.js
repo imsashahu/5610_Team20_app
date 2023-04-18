@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Header from "../header";
 import ReviewCard from "../review-card";
+import CourseInfo from "./course-info";
 import { useDispatch } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
 
@@ -38,6 +39,7 @@ const CoursePage = () => {
             Leave a Review
           </Link>
         </div>
+        <CourseInfo/>
         <div className="fs-1 justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
             <div>Be the first one to review course {courseNumber}</div>
