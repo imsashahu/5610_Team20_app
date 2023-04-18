@@ -1,27 +1,89 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useEffect } from "react";
 import Header from "../header";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import SearchCourse from "../searchcourse";
+import SearchYoutube from "../search-youtube";
+import { useDispatch } from "react-redux";
+import { profileThunk } from "../../services/users/users-thunks";
 
-const SearchComponent = () => {
-  const data = useLoaderData();
-  console.log("data", data);
+const Search = () => {
+  const [value, setValue] = React.useState(0);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(profileThunk());
+  }, []);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <>
       <Header />
       <div className="container">
-        <h4>Students' Comments about Course "{data.q}"</h4>
-        <h4>Search Result for "{data.q}" from Public Library API</h4>
-        <div>
-          About {data.numFound === null ? "None" : data.numFound} results
-        </div>
-        <ul>
-          {data.docs.slice(0, 9).map((doc) => (
-            <li>{doc.title}</li>
-          ))}
-        </ul>
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab label="Search Youtube Materials" {...a11yProps(0)} />
+              <Tab label="Search Course Reviews" {...a11yProps(1)} />
+              <Tab label="Item Three" {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <SearchYoutube />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <SearchCourse />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Item Three
+          </TabPanel>
+        </Box>
       </div>
     </>
   );
 };
 
-export default SearchComponent;
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+export default Search;

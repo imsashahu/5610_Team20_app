@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { Form } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { profileThunk } from "../../services/users/users-thunks";
 
-const SearchCourse = () => {
+const SearchYoutube = () => {
   const [searchTerm, setSearchTerm] = useState();
   const data = useLoaderData();
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(profileThunk());
+  }, []);
+
   return (
     <>
-      {/* <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-        <div>NEU Course Reviews</div>
-      </div> */}
       <Form
         className="col-12 col-lg-auto mt-3 mb-3 mb-lg-0 me-lg-3"
         type="text"
@@ -21,7 +25,7 @@ const SearchCourse = () => {
           <input
             type="text"
             className="form-control"
-            id="course"
+            id="youtube"
             aria-label="Search"
             name="q"
             placeholder="5610"
@@ -29,8 +33,8 @@ const SearchCourse = () => {
               setSearchTerm(e.target.value);
             }}
           />
-          <label htmlFor="course">
-            Search Course by Course Number, e.g. 5610
+          <label htmlFor="youtube">
+            Search Youtube Videos by Course Number, e.g. 5610
           </label>
         </div>
       </Form>
@@ -69,4 +73,4 @@ const SearchCourse = () => {
   );
 };
 
-export default SearchCourse;
+export default SearchYoutube;

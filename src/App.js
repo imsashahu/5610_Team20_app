@@ -18,6 +18,33 @@ import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
 
+const getCourseReviews = async (searchTerm) => {
+  let axiosUrl = `http://localhost:4001/courses/${searchTerm}`;
+  return axios.get(axiosUrl).then((res) => {
+    console.log("[getCourseReviews] courses", res.data);
+    return res;
+  });
+};
+
+const getYoutubeVideos = async () => {
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}`;
+  console.log("youtube, searchTerm is not null");
+  return axios
+    .get(apiUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("[getYoutubeVideos]", response.data.items);
+      return response;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -52,52 +79,21 @@ const router = createBrowserRouter(
       <Route path="details/:courseNumber/add-review" element={<AddReview />} />
       <Route
         path="/search"
-        element={<SearchCourse />}
-        loader={async ({ request }) => {
-          let url = new URL(request.url);
-          let searchTerm = url.searchParams.get("q");
-          console.log("searchTerm", searchTerm);
-          let axiosUrl =
-            searchTerm === null
-              ? `http://localhost:4001/courses`
-              : `http://localhost:4001/courses/${searchTerm}`;
-          return axios.get(axiosUrl).then((res) => {
-            console.log("courses", res.data);
-            return res;
-          });
-        }}
-      />
-      <Route path="/profile/edit-profile" element={<EditProfile />} />
-      {/* <Route
-        path="/search"
         element={<Search />}
         loader={async ({ request }) => {
           let url = new URL(request.url);
-          let searchTerm = url.searchParams.get("q")?.trim();
-          let queryParam = searchTerm?.split(" ").join("+");
-          return await fetch(
-            `https://openlibrary.org/search.json?q=${queryParam}`
-          )
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              }
-              throw new Error("Network response was not ok.");
-            })
-            .then((data) => {
-              // Do something with the data, such as displaying it on the page or manipulating it
-              console.log(data);
-              return data;
-            })
-            .catch((error) => {
-              // Handle errors that may have occurred during the request or response
-              console.error("Error:", error);
-            });
+          let searchTerm = url.searchParams.get("q");
+          console.log("loader searchTerm", searchTerm);
+          if (searchTerm === null) {
+            console.log("searchTerm is null");
+            return null;
+          }
+          let courseReviews = await getCourseReviews(searchTerm);
+          let youtebeVideos = await getYoutubeVideos();
+          return courseReviews;
         }}
-        action={async ({ request }) => {
-          return redirect(`/search`);
-        }}
-      /> */}
+      />
+      <Route path="/profile/edit-profile" element={<EditProfile />} />
     </>
   )
 );
