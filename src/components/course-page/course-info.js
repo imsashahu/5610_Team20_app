@@ -1,5 +1,4 @@
 import React from "react";
-import "./index.css";
 
 const CourseInfo = () => {
     const description = "Discusses Web development for sites that are dynamic, " +
@@ -19,11 +18,7 @@ const CourseInfo = () => {
                 <img className="profile-banner-relative-pos" src={`/images/polyglot.png`} height={300} alt="profile-banner"/>
             </div>
 
-            {/*<div className="ms-2 fw-bold" style={{fontSize: 20}}>CS 5610</div>*/}
-            {/*<div className="ms-2 fw-semibold" style={{fontSize: 20}}>Web Development</div>*/}
-            {/*<br/>*/}
-            {/*<div className="ms-2 me-3 fw-bold">Section</div>*/}
-            {/*<div className="ms-3 me-3 fw-normal">06</div>*/}
+            <br/>
             <div className="ms-2 me-3 fw-bold">Credit Hour(s)</div>
             <div className="ms-3 me-3 fw-normal">4</div>
             <div className="ms-2 me-3 fw-bold">Instructor(s)</div>
@@ -34,13 +29,8 @@ const CourseInfo = () => {
             <div className="ms-3 me-3 fw-normal">Online</div>
             <div className="ms-2 me-3 fw-bold">Description</div>
             <div className="ms-3 me-3 fw-normal">{description}</div>
+            <br/>
             <div className="ms-2 me-3 fw-bold">Student Review(s)</div>
-            {/*<div className="ms-3 me-3 fw-semibold">Student1</div>*/}
-            {/*<div className="ms-4 me-3 fw-normal">This is a great course!</div>*/}
-            {/*<div className="ms-3 me-3 fw-semibold">Student2</div>*/}
-            {/*<div className="ms-4 me-3 fw-normal">The professor is amazing!</div>*/}
-            {/*<div className="ms-3 me-3 fw-semibold">Student3</div>*/}
-            {/*<div className="ms-4 me-3 fw-normal">Highly recommended!</div>*/}
         </div>
     );
 };
