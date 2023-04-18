@@ -49,6 +49,11 @@ const ReviewCard = ({ review }) => {
               {user.data.username}
             </a>
           )}
+          {user && !currentUser && (
+            <a href={`/profile/${review.postedBy}`} style={{ color: "black" }}>
+              {user.data.username}
+            </a>
+          )}
         </div>
       </div>
     </>
