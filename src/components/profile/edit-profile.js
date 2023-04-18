@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect, Link, useNavigate } from "react-router-dom";
 import Header from "../header/index.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {profileThunk, updateUserThunk} from "../../services/users/users-thunks";
+import {
+  profileThunk,
+  updateUserThunk,
+} from "../../services/users/users-thunks";
 import { Alert } from "bootstrap";
 
 const EditProfile = () => {
@@ -13,8 +16,9 @@ const EditProfile = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  useEffect(()=> {dispatch(profileThunk());
-  },[]);
+  useEffect(() => {
+    dispatch(profileThunk());
+  }, []);
 
   const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/;
 
@@ -22,9 +26,6 @@ const EditProfile = () => {
     if (emailRegExp.test(email)) {
       try {
         const newUser = { ...currentUser, email: email };
-        console.log("saving");
-        console.log("new user", newUser);
-        console.log("email", email);
         dispatch(updateUserThunk(newUser));
         toast("Save successfully :)");
       } catch (err) {

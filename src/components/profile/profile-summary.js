@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPaperPlane,
-  faHeart,
   faMagnifyingGlassArrowRight,
-  faThumbsUp,
   faUser,
-  faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ProfileSummaryItem = () => {
@@ -17,7 +14,7 @@ const ProfileSummaryItem = () => {
 
   return (
     <>
-      <div className="card container">
+      <div className="card container border-white">
         <div className="card-body">
           <h3 className="card-title">
             <span className="me-2">
@@ -55,22 +52,6 @@ const ProfileSummaryItem = () => {
               Edit Email
             </Link>
           </div>
-        </div>
-      </div>
-
-      {/* Demo all posts written by current user in group */}
-      <div className="card container">
-        <div className="card-body">
-          <h3 className="card-title">
-            <span className="me-2">
-              <FontAwesomeIcon
-                icon={faMessage}
-                style={{ color: "rgb(228, 161, 27)" }}
-              />
-            </span>
-            Posts
-          </h3>
-          <h5 className="card-title">ABC</h5>
         </div>
       </div>
     </>
