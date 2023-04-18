@@ -1,14 +1,15 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Header from "../header";
 import ReviewCard from "../review-card";
-import {useDispatch} from "react-redux";
-import {profileThunk} from "../../services/users/users-thunks";
+import { useDispatch } from "react-redux";
+import { profileThunk } from "../../services/users/users-thunks";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
-  useEffect(()=> {dispatch(profileThunk());
-  },[]);
+  useEffect(() => {
+    dispatch(profileThunk());
+  }, []);
   const data = useLoaderData();
   const courseInfo = data.data[0];
   const {
@@ -37,7 +38,7 @@ const CoursePage = () => {
             Leave a Review
           </Link>
         </div>
-        <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
+        <div className="fs-1 justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
             <div>Be the first one to review course {courseNumber}</div>
           ) : (
