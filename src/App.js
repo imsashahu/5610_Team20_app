@@ -1,23 +1,25 @@
 import React from "react";
 import "./App.css";
+
+import axios from "axios";
+import { Provider } from "react-redux";
+import usersReducer from "./reducers/users-reducer";
+import { configureStore } from "@reduxjs/toolkit";
 import { createBrowserRouter } from "react-router-dom";
 import { Route, createRoutesFromElements, RouterProvider } from "react-router";
+
 import Home from "./components/home";
 import Details from "./components/details";
 import Profile from "./components/profile";
 import ProfileUID from "./components/profile-uid";
-import Search from "./components/search";
+import Search from "./components/searchcourse";
 import Login from "./components/login";
 import Signup from "./components/signup";
-import SearchCourse from "./components/searchcourse/index.js";
-import axios from "axios";
 import CoursePage from "./components/course-page";
 import EditProfile from "./components/profile/edit-profile";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
 
+// get course reviews given a course number(e.g. search on "5610" should return all reviews for CS5610)
 const getCourseReviews = async (searchTerm) => {
   let axiosUrl = `http://localhost:4001/courses/${searchTerm}`;
   return axios.get(axiosUrl).then((res) => {
@@ -26,9 +28,10 @@ const getCourseReviews = async (searchTerm) => {
   });
 };
 
-const getYoutubeVideos = async () => {
+// get related youtube videos given a course number(e.g. search on "5610" should return 5 related youtube videos for CS5610 web development)
+const getYoutubeVideos = async (searchTerm) => {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}`;
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchTerm}&key=${apiKey}`;
   console.log("youtube, searchTerm is not null");
   return axios
     .get(apiUrl, {
@@ -45,12 +48,30 @@ const getYoutubeVideos = async () => {
     });
 };
 
+// only data router can load data in Route's loader
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Home />} />
+
+      {/* details */}
       <Route path="/details" element={<Details />} />
+      <Route path="details/:courseNumber/add-review" element={<AddReview />} />
+      <Route
+        path="/details/:courseNumber"
+        element={<CoursePage />}
+        loader={async ({ params, request }) => {
+          let axiosUrl = `http://localhost:4001/courses/${params.courseNumber}`;
+          return axios.get(axiosUrl).then((res) => {
+            console.log("courses", res.data);
+            return res;
+          });
+        }}
+      />
+
+      {/* profile */}
       <Route path="/profile" element={<Profile />} />
+      <Route path="/profile/edit-profile" element={<EditProfile />} />
       <Route
         path="/profile/:uid"
         element={<ProfileUID />}
@@ -63,20 +84,12 @@ const router = createBrowserRouter(
           });
         }}
       />
+
+      {/* registration and authentication */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route
-        path="/details/:courseNumber"
-        element={<CoursePage />}
-        loader={async ({ params, request }) => {
-          let axiosUrl = `http://localhost:4001/courses/${params.courseNumber}`;
-          return axios.get(axiosUrl).then((res) => {
-            console.log("courses", res.data);
-            return res;
-          });
-        }}
-      />
-      <Route path="details/:courseNumber/add-review" element={<AddReview />} />
+
+      {/* search */}
       <Route
         path="/search"
         element={<Search />}
@@ -86,14 +99,15 @@ const router = createBrowserRouter(
           console.log("loader searchTerm", searchTerm);
           if (searchTerm === null) {
             console.log("searchTerm is null");
-            return null;
+            return {};
           }
           let courseReviews = await getCourseReviews(searchTerm);
-          let youtebeVideos = await getYoutubeVideos();
-          return courseReviews;
+          let youtubeVideos = await getYoutubeVideos(searchTerm);
+          let res = { courseReviews, youtubeVideos };
+          console.log("res", res);
+          return res;
         }}
       />
-      <Route path="/profile/edit-profile" element={<EditProfile />} />
     </>
   )
 );
