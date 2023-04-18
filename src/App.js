@@ -6,10 +6,9 @@ import Home from "./components/home";
 import Details from "./components/details";
 import Profile from "./components/profile";
 import ProfileUID from "./components/profile-uid";
-import Search from "./components/search";
+import Search from "./components/searchcourse";
 import Login from "./components/login";
 import Signup from "./components/signup";
-import SearchCourse from "./components/searchcourse/index.js";
 import axios from "axios";
 import CoursePage from "./components/course-page";
 import EditProfile from "./components/profile/edit-profile";
@@ -17,6 +16,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
+import { search } from "fontawesome";
 
 const getCourseReviews = async (searchTerm) => {
   let axiosUrl = `http://localhost:4001/courses/${searchTerm}`;
@@ -26,9 +26,9 @@ const getCourseReviews = async (searchTerm) => {
   });
 };
 
-const getYoutubeVideos = async () => {
+const getYoutubeVideos = async (searchTerm) => {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}`;
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchTerm}&key=${apiKey}`;
   console.log("youtube, searchTerm is not null");
   return axios
     .get(apiUrl, {
@@ -86,11 +86,13 @@ const router = createBrowserRouter(
           console.log("loader searchTerm", searchTerm);
           if (searchTerm === null) {
             console.log("searchTerm is null");
-            return null;
+            return {};
           }
           let courseReviews = await getCourseReviews(searchTerm);
-          let youtebeVideos = await getYoutubeVideos();
-          return courseReviews;
+          let youtubeVideos = await getYoutubeVideos(searchTerm);
+          let res = { courseReviews, youtubeVideos };
+          console.log("res", res);
+          return res;
         }}
       />
       <Route path="/profile/edit-profile" element={<EditProfile />} />
