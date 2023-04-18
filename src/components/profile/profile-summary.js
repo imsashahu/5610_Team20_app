@@ -60,8 +60,8 @@ const ProfileSummaryItem = () => {
 
       {/* Demo all posts written by current user in group */}
       <div className="card container">
-        <div class="card-body">
-          <h3 class="card-title">
+        <div className="card-body">
+          <h3 className="card-title">
             <span className="me-2">
               <FontAwesomeIcon
                 icon={faMessage}
@@ -70,7 +70,7 @@ const ProfileSummaryItem = () => {
             </span>
             Posts
           </h3>
-          <h5 class="card-title">ABC</h5>
+          <h5 className="card-title">ABC</h5>
         </div>
       </div>
     </>
