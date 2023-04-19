@@ -1,13 +1,14 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Header from "../header";
 import { Link, useLocation } from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {profileThunk} from "../../services/users/users-thunks";
+import { useDispatch } from "react-redux";
+import { profileThunk } from "../../services/users/users-thunks";
 
 const AddReview = () => {
   const dispatch = useDispatch();
-  useEffect(()=> {dispatch(profileThunk());
-  },[]);
+  useEffect(() => {
+    dispatch(profileThunk());
+  }, []);
   const path = useLocation().pathname;
   const lastSlashIndex = path.lastIndexOf("/");
   const prePath = path.substring(0, lastSlashIndex);
@@ -17,7 +18,7 @@ const AddReview = () => {
       <Header />
       <div className="container">
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-          <div>Add Review</div>
+          <div>Leave A Review</div>
         </div>
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
           <Link to={prePath} className="btn btn-outline-primary">

@@ -6,7 +6,7 @@ const CourseReviewResult = ({ courseReviews }) => {
   return (
     <>
       {!isEmpty(courseReviews) && (
-        <table className="table table-hover">
+        <table className="table table-hover text-dark">
           <thead>
             <tr>
               <th scope="col">Course Number</th>
@@ -20,7 +20,10 @@ const CourseReviewResult = ({ courseReviews }) => {
             {courseReviews.data.map((course) => (
               <tr key={course.courseNumber}>
                 <th scope="row">
-                  <Link to={`/details/${course.courseNumber}`}>
+                  <Link
+                    to={`/details/${course.courseNumber}`}
+                    className="text-dark"
+                  >
                     {course.courseNumber}
                   </Link>
                 </th>

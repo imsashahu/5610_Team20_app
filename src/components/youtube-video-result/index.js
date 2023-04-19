@@ -16,15 +16,17 @@ const YoutubeVideoResult = ({ youtubeVideos }) => {
           <tbody>
             {youtubeVideos.data.items.map((video, index) => (
               <tr key={index}>
-                <th scope="row">
+                <td scope="row">
                   <a
+                    className="text-dark"
                     href={`https://www.youtube.com/channel/${video.snippet.channelId}`}
                   >
                     {video.snippet.channelTitle}
                   </a>
-                </th>
+                </td>
                 <td>
                   <a
+                    className="text-dark"
                     href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
                   >
                     {video.snippet.title}

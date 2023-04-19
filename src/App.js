@@ -79,6 +79,7 @@ const router = createBrowserRouter(
         }}
       />
       <Route path="details/:courseNumber/add-review" element={<AddReview />} />
+      <Route path="add-review" element={<AddReview />} />
       <Route
         path="/search"
         element={<Search />}

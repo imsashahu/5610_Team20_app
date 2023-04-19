@@ -26,8 +26,14 @@ const HomeComponent = () => {
           </div>
         </div>
         {currentUser && (
-          <div className="d-flex justify-content-center align-items-center display-6">
-            <div>Welcome back, {currentUser.username}</div>
+          <div className="d-flex flex-column justify-content-center align-items-center display-6">
+            <div>
+              Welcome back,{" "}
+              <Link className="text-dark" to="/profile">
+                {currentUser.username}
+              </Link>
+            </div>
+            <div>Take a new course? Review it now!</div>
           </div>
         )}
         {!currentUser && (

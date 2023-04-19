@@ -51,28 +51,29 @@ const Header = () => {
 
           <div className="text-end">
             {!currentUser && (
-              <Link
-                type="button"
-                className="btn btn-outline-light me-2"
-                to="/login"
-              >
-                Login
-              </Link>
+              <div>
+                <Link
+                  type="button"
+                  className="btn btn-outline-light me-2"
+                  to="/login"
+                >
+                  Login
+                </Link>
+                <Link type="button" className="btn btn-warning" to="/signup">
+                  <div>Sign-up</div>
+                </Link>
+              </div>
             )}
-            {!currentUser && (
-              <Link type="button" className="btn btn-warning" to="/signup">
-                Sign-up
-              </Link>
-            )}
+
             {currentUser && (
               <button
-                className="btn btn-danger"
+                className="btn btn-danger d-flex justify-content-center align-items-center"
                 onClick={() => {
                   dispatch(logoutThunk());
                   navigate("/");
                 }}
               >
-                Logout
+                <div>Logout</div>
               </button>
             )}
 
