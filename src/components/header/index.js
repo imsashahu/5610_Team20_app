@@ -77,6 +77,52 @@ const Header = () => {
               </button>
             )}
 
+            {/* tested avatar */}
+            {/* {currentUser && (
+              <div class="dropdown text-end">
+                <a
+                  href="#"
+                  className="d-block link-dark text-decoration-none dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="/images/anonymous-avatar.webp"
+                    alt="mdo"
+                    width="48"
+                    height="48"
+                    className="rounded-circle"
+                  />
+                </a>
+                <ul className="dropdown-menu text-small">
+                  <li>
+                    <button className="dropdown-item ">
+                      <Link
+                        to="/profile"
+                        className="nav-link px-2 text-dark d-flex justify-content-center align-items-center"
+                      >
+                        Profile
+                      </Link>
+                    </button>
+                  </li>
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <button
+                      className="dropdown-item d-flex justify-content-center align-items-center"
+                      onClick={() => {
+                        dispatch(logoutThunk());
+                        navigate("/");
+                      }}
+                    >
+                      <div>Logout</div>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )} */}
+
             {/*<Link*/}
             {/*  type="button"*/}
             {/*  className="btn btn-outline-light me-2"*/}
