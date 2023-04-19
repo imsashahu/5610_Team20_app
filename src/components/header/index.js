@@ -77,7 +77,8 @@ const Header = () => {
               </button>
             )}
 
-            {currentUser && (
+            {/* tested avatar */}
+            {/* {currentUser && (
               <div class="dropdown text-end">
                 <a
                   href="#"
@@ -120,7 +121,7 @@ const Header = () => {
                   </li>
                 </ul>
               </div>
-            )}
+            )} */}
 
             {/*<Link*/}
             {/*  type="button"*/}
