@@ -15,9 +15,10 @@ const ProfileSummaryItem = () => {
   return (
     <>
       <div className="card container border-white">
-        <div className="card-body">
+        <div className="card-body" style={{ textAlign: "right" }}>
           <div className="fw-bold mb-2" style={{ fontSize: "20px" }}>
-            Role: {currentUser ? currentUser.role : "Undefined"}{" "}
+            <FontAwesomeIcon icon={faUser} className="me-2" />
+            {currentUser ? currentUser.role : "Undefined"}{" "}
           </div>
         </div>
       </div>
@@ -26,23 +27,21 @@ const ProfileSummaryItem = () => {
         <div className="card-body">
           <h4 className="card-title">
             <div className="mb-2" style={{ fontSize: "18px" }}>
-              Username: @{currentUser ? currentUser.username : "Undefined"}
+              <span className="fw-bold">Username</span>: @
+              {currentUser ? currentUser.username : "Undefined"}
             </div>
           </h4>
 
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="card-title">
               <div className="mb-2" style={{ fontSize: "18px" }}>
-                Email: {currentUser ? currentUser.email : "Undefined"}
+                <span className="fw-bold">Email</span>:{" "}
+                {currentUser ? currentUser.email : "Undefined"} <span> - </span>
+                <Link to="/profile/edit-profile" style={{ color: "black" }}>
+                  Edit Email
+                </Link>
               </div>
             </h4>
-            <Link
-              to="/profile/edit-profile"
-              type="button"
-              className="btn btn-warning"
-            >
-              Edit Email
-            </Link>
           </div>
         </div>
       </div>
