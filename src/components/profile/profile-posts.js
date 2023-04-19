@@ -25,7 +25,7 @@ const ProfilePosts = () => {
       {/* Demo all posts written by current user in group */}
       <div className="card container border-white">
         <div className="card-body">
-          <div className="fw-bold mb-2" style={{ fontSize: "20px" }}>
+          <div className="fw-bold mb-2" style={{ fontSize: "18px" }}>
             Post Summary
           </div>
 
