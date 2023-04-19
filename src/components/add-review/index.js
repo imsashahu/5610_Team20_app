@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginThunk, profileThunk} from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {addReview} from "../../services/reviews/reviews-service";
 
 const AddReview = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -15,7 +16,8 @@ const AddReview = () => {
   const [easiness, setEasiness] = useState(1);
   const [usefulness, setUsefulness] = useState(1);
   const [review, setReview] = useState("");
-  const [postedBy, setPostedBy] = useState("");
+  // const [postedBy, setPostedBy] = useState("");
+  // const [course, setCourse] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -26,6 +28,26 @@ const AddReview = () => {
   const prePath = path.substring(0, lastSlashIndex);
   console.log("path", path);
   console.log("prePath", prePath);
+
+  const postReview = async () => {
+    // await setPostedBy(currentUser._id)
+    console.log("[addReview]currentUser", currentUser);
+    console.log("[addReview]currentUser._id", currentUser._id);
+    const reviewData = {
+      courseNumber,
+      professor,
+      yearTaken,
+      rate,
+      easiness,
+      usefulness,
+      review,
+      postedBy: currentUser._id
+    }
+    console.log("[addReview]reviewData", reviewData);
+    const returnedCourse = await addReview(reviewData);
+    console.log("returnedCourse", returnedCourse);
+    // setCourse(returnedCourse);
+  }
 
   return (
     <div>
@@ -155,9 +177,14 @@ const AddReview = () => {
           </Link>
           <button className="btn btn-warning mt-2"
                   onClick={() => {
-                    if (courseNumber === 0 || professor === "" || review === "") {
+                    if (!courseNumber || courseNumber === 0 || professor === "" || review === "") {
                       toast("Please enter all the required information.");
+                    } else if (!currentUser) {
+                      console.log("Current user is null!");
+                      navigate(prePath);
                     } else {
+                      postReview();
+                      console.log("Successfully posted a new review!");
                       navigate(prePath);
                     }
                   }}>
