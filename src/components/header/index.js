@@ -86,7 +86,7 @@ const Header = () => {
                   aria-expanded="false"
                 >
                   <img
-                    src="https://github.com/mdo.png"
+                    src="/images/anonymous-avatar.webp"
                     alt="mdo"
                     width="48"
                     height="48"
