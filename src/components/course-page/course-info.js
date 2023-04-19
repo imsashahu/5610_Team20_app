@@ -19,7 +19,9 @@ const CourseInfo = ({ courseNumber }) => {
     return(
         <div className="align-items-center mt-4">
             <div className="position-relative">
-                <img className="profile-banner-relative-pos" src={`/images/polyglot.png`} height={300} alt="profile-banner"/>
+                {course && (
+                    <img className="profile-banner-relative-pos" src={`/images/${course.bannerImage}`} height={300} alt="banner-image"/>
+                )}
             </div>
 
             <br/>
