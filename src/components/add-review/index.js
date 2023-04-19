@@ -172,14 +172,14 @@ const AddReview = () => {
             Go back to review page
           </Link>
           <button className="btn btn-warning mt-2"
-                  onClick={() => {
+                  onClick={async () => {
                     if (!courseNumber || courseNumber === 0 || professor === "" || review === "") {
                       toast("Please enter all the required information.");
                     } else if (!currentUser) {
                       console.log("Current user is null!");
                       navigate(prePath);
                     } else {
-                      postReview();
+                      await postReview();
                       console.log("Successfully posted a new review!");
                       navigate(prePath);
                     }
