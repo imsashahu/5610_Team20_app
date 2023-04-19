@@ -14,7 +14,7 @@ const HomeComponent = () => {
     <>
       <Header />
       <div className="container">
-        <div className="fw-bold display-4 mt-5 mb-5">
+        <div className="fw-bold display-4 mt-5 mb-5 text-primary">
           <div className="d-flex justify-content-center align-items-center mb-4">
             Rate Your Courses
           </div>
