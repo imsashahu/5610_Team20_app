@@ -31,15 +31,22 @@ const CourseInfo = ({ courseNumber }) => {
             )}
             <div className="ms-2 me-3 fw-bold">Instructor(s)</div>
             {course && (
-                <div className="ms-3 me-3 fw-normal">{course.professors[0]}</div>
+                <div className="ms-3 me-3 fw-normal">
+                    {course.professors.map((professor, index) => displayList(professor, index, course.professors.length))}
+                </div>
             )}
             <div className="ms-2 me-3 fw-bold">Location(s)</div>
             {course && (
-                <div className="ms-3 me-3 fw-normal">{course.locations[0]}</div>
+                <div className="ms-3 me-3 fw-normal">
+                    {course.locations.map((location, index) => displayList(location, index, course.locations.length))}
+                </div>
             )}
             <div className="ms-2 me-3 fw-bold">Instructional Method(s)</div>
             {course && (
-                <div className="ms-3 me-3 fw-normal">{course.instructionalMethods[0]}</div>
+                <div className="ms-3 me-3 fw-normal">
+                    {course.instructionalMethods.map((instructionalMethod, index) =>
+                        displayList(instructionalMethod, index, course.instructionalMethods.length))}
+                </div>
             )}
             <div className="ms-2 me-3 fw-bold">Description</div>
             {course && (
@@ -50,5 +57,13 @@ const CourseInfo = ({ courseNumber }) => {
         </div>
     );
 };
+
+const displayList = (item, index, length) => {
+    return (
+        <span>
+            {item}{index !== length - 1 ? ", " : ""}
+        </span>
+    );
+}
 
 export default CourseInfo;
