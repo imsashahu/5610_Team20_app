@@ -25,21 +25,12 @@ const ProfilePosts = () => {
       {/* Demo all posts written by current user in group */}
       <div className="card container border-white">
         <div className="card-body">
-          <h3 className="card-title">
-            <span className="me-2">
-              <FontAwesomeIcon
-                icon={faMessage}
-                style={{ color: "rgb(228, 161, 27)" }}
-              />
-            </span>
+          <div className="fw-bold mb-2" style={{ fontSize: "20px" }}>
             Post Summary
-          </h3>
+          </div>
 
-          <div className="fs-1 justify-content-around align-items-center mt-4">
-            {posts &&
-              posts.data.map((post) => (
-                <ReviewCard className="pb-3" review={post} />
-              ))}
+          <div className="fs-1 justify-content-around align-items-center">
+            {posts && posts.data.map((post) => <ReviewCard review={post} />)}
           </div>
         </div>
       </div>

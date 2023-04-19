@@ -16,33 +16,25 @@ const ProfileSummaryItem = () => {
     <>
       <div className="card container border-white">
         <div className="card-body">
-          <h3 className="card-title">
-            <span className="me-2">
-              <FontAwesomeIcon
-                icon={faUser}
-                style={{ color: "rgb(228, 161, 27)" }}
-              />
-            </span>
-            {currentUser ? currentUser.role : "Undefined"}{" "}
-          </h3>
+          <div className="fw-bold mb-2" style={{ fontSize: "20px" }}>
+            Role: {currentUser ? currentUser.role : "Undefined"}{" "}
+          </div>
+        </div>
+      </div>
+
+      <div className="card container border-white">
+        <div className="card-body">
           <h4 className="card-title">
-            <span className="me-2 mt-5">
-              <FontAwesomeIcon
-                icon={faMagnifyingGlassArrowRight}
-                style={{ color: "rgb(228, 161, 27)" }}
-              />
-            </span>
-            @{currentUser ? currentUser.username : "Undefined"}
+            <div className="mb-2" style={{ fontSize: "18px" }}>
+              Username: @{currentUser ? currentUser.username : "Undefined"}
+            </div>
           </h4>
+
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="card-title">
-              <span className="me-2 mt-5">
-                <FontAwesomeIcon
-                  icon={faPaperPlane}
-                  style={{ color: "rgb(228, 161, 27)" }}
-                />
-              </span>
-              {currentUser ? currentUser.email : "Undefined"}
+              <div className="mb-2" style={{ fontSize: "18px" }}>
+                Email: {currentUser ? currentUser.email : "Undefined"}
+              </div>
             </h4>
             <Link
               to="/profile/edit-profile"

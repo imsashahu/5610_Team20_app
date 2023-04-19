@@ -22,22 +22,30 @@ const ReviewCard = ({ review }) => {
 
   return (
     <>
-      <div className="card text-bg-light mb-2" style={{ width: "100%" }}>
-        <div class="card-header text-bg-secondary" style={{ fontSize: "20px" }}>
+      <div
+        className="card text-bg-light border-light mb-3"
+        style={{ width: "100%" }}
+      >
+        <div class="card-header" style={{ fontSize: "15px" }}>
           Prof. {review.professor},{" "}
           <a
             href={`/details/${review.courseNumber}`}
-            style={{ color: "white" }}
+            style={{ color: "black" }}
           >
             {review.courseNumber}
           </a>
         </div>
 
-        <div className="card-body">
-          <h5 class="card-title">{review.review}</h5>
+        <div class="card-body">
+          <p class="card-text" style={{ fontSize: "15px" }}>
+            {review.review}
+          </p>
         </div>
 
-        <div class="card-footer" style={{ fontSize: "15px" }}>
+        <div
+          class="card-footer"
+          style={{ fontSize: "12px", textAlign: "right" }}
+        >
           <span>Posted by: @</span>
           {user && currentUser && user.data._id === currentUser._id && (
             <a href={`/profile`} style={{ color: "black" }}>

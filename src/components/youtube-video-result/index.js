@@ -9,8 +9,8 @@ const YoutubeVideoResult = ({ youtubeVideos }) => {
         <table className="table table-hover">
           <thead>
             <tr key="youbute-videos-table-head">
-              <th scope="col">Youtube Channel</th>
-              <th scope="col">Youtube Video</th>
+              <th scope="col">Author</th>
+              <th scope="col">Videos for Beginners</th>
             </tr>
           </thead>
           <tbody>
