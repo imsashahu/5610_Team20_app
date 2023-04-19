@@ -23,6 +23,7 @@ const CoursePage = () => {
     professors,
     reviews,
   } = courseInfo;
+  console.log("[CourseInfo] courseInfo", courseInfo);
 
   return (
     <>
@@ -39,7 +40,7 @@ const CoursePage = () => {
             Leave a Review
           </Link>
         </div>
-        <CourseInfo courseNumber={courseNumber} />
+        <CourseInfo course={courseInfo} />
         <div className="fs-1 justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
             <div>Be the first one to review course {courseNumber}</div>

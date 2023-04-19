@@ -1,19 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-const CourseInfo = ({ courseNumber }) => {
-    const [course, setCourse] = useState();
-    useEffect(() => {
-        axios
-            .get(`http://localhost:4001/courses/${courseNumber}`)
-            .then((response) => {
-                setCourse(response.data[0]);
-                return response.data[0];
-            });
-    }, [courseNumber]);
-
-    console.log(`http://localhost:4001/courses/${courseNumber}`);
-    console.log("[CourseInfo] courseNumber", courseNumber);
+const CourseInfo = ({ course }) => {
     console.log("[CourseInfo] course", course);
 
     return(
