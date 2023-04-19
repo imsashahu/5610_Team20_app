@@ -16,8 +16,6 @@ const AddReview = () => {
   const [easiness, setEasiness] = useState(1);
   const [usefulness, setUsefulness] = useState(1);
   const [review, setReview] = useState("");
-  // const [postedBy, setPostedBy] = useState("");
-  // const [course, setCourse] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -30,9 +28,8 @@ const AddReview = () => {
   console.log("prePath", prePath);
 
   const postReview = async () => {
-    // await setPostedBy(currentUser._id)
-    console.log("[addReview]currentUser", currentUser);
-    console.log("[addReview]currentUser._id", currentUser._id);
+    console.log("[PostReview]currentUser", currentUser);
+    console.log("[PostReview]currentUser._id", currentUser._id);
     const reviewData = {
       courseNumber,
       professor,
@@ -43,10 +40,9 @@ const AddReview = () => {
       review,
       postedBy: currentUser._id
     }
-    console.log("[addReview]reviewData", reviewData);
+    console.log("[PostReview]reviewData", reviewData);
     const returnedCourse = await addReview(reviewData);
-    console.log("returnedCourse", returnedCourse);
-    // setCourse(returnedCourse);
+    console.log("[PostReview]returnedCourse", returnedCourse);
   }
 
   return (
