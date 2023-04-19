@@ -8,14 +8,14 @@ const YoutubeVideoResult = ({ youtubeVideos }) => {
       {!isEmpty(youtubeVideos) && (
         <table className="table table-hover">
           <thead>
-            <tr>
+            <tr key="youbute-videos-table-head">
               <th scope="col">Youtube Channel</th>
               <th scope="col">Youtube Video</th>
             </tr>
           </thead>
           <tbody>
-            {youtubeVideos.data.items.map((video) => (
-              <tr key={video.id.videoId}>
+            {youtubeVideos.data.items.map((video, index) => (
+              <tr key={index}>
                 <th scope="row">
                   <a
                     href={`https://www.youtube.com/channel/${video.snippet.channelId}`}

@@ -18,10 +18,12 @@ import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
 import { search } from "fontawesome";
 
+const debug = false;
+
 const getCourseReviews = async (searchTerm) => {
   let axiosUrl = `http://localhost:4001/courses/${searchTerm}`;
   return axios.get(axiosUrl).then((res) => {
-    console.log("[getCourseReviews] courses", res.data);
+    debug && console.log("[getCourseReviews] courses", res.data);
     return res;
   });
 };
@@ -29,7 +31,7 @@ const getCourseReviews = async (searchTerm) => {
 const getYoutubeVideos = async (searchTerm) => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchTerm}&key=${apiKey}`;
-  console.log("youtube, searchTerm is not null");
+  debug && console.log("[getYoutubeVideos] searchTerm", searchTerm);
   return axios
     .get(apiUrl, {
       headers: {
@@ -37,7 +39,7 @@ const getYoutubeVideos = async (searchTerm) => {
       },
     })
     .then((response) => {
-      console.log("[getYoutubeVideos]", response.data.items);
+      debug && console.log("[getYoutubeVideos]", response.data.items);
       return response;
     })
     .catch((error) => {
@@ -55,10 +57,10 @@ const router = createBrowserRouter(
         path="/profile/:uid"
         element={<ProfileUID />}
         loader={async ({ params, request }) => {
-          console.log("uid", params.uid);
+          debug && console.log("uid", params.uid);
           let axiosUrl = `http://localhost:4001/api/users/id/${params.uid}`;
           return axios.get(axiosUrl).then((res) => {
-            console.log("UID", res.data);
+            debug && console.log("UID", res.data);
             return res;
           });
         }}
@@ -71,7 +73,7 @@ const router = createBrowserRouter(
         loader={async ({ params, request }) => {
           let axiosUrl = `http://localhost:4001/courses/${params.courseNumber}`;
           return axios.get(axiosUrl).then((res) => {
-            console.log("courses", res.data);
+            debug && console.log("courses", res.data);
             return res;
           });
         }}
@@ -83,15 +85,16 @@ const router = createBrowserRouter(
         loader={async ({ request }) => {
           let url = new URL(request.url);
           let searchTerm = url.searchParams.get("q");
-          console.log("loader searchTerm", searchTerm);
+          debug && console.log("loader searchTerm", searchTerm);
           if (searchTerm === null) {
-            console.log("searchTerm is null");
+            debug && console.log("searchTerm is null");
             return {};
           }
           let courseReviews = await getCourseReviews(searchTerm);
-          let youtubeVideos = await getYoutubeVideos(searchTerm);
+          let courseName = courseReviews.data[0].courseName;
+          let youtubeVideos = await getYoutubeVideos(courseName);
           let res = { courseReviews, youtubeVideos };
-          console.log("res", res);
+          debug && console.log("res", res);
           return res;
         }}
       />
