@@ -3,6 +3,8 @@ import Header from "../header";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {loginThunk, profileThunk} from "../../services/users/users-thunks";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddReview = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -153,12 +155,17 @@ const AddReview = () => {
           </Link>
           <button className="btn btn-warning mt-2"
                   onClick={() => {
-                    navigate(prePath);
+                    if (courseNumber === 0 || professor === "" || review === "") {
+                      toast("Please enter all the required information.");
+                    } else {
+                      navigate(prePath);
+                    }
                   }}>
             Post Review
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
