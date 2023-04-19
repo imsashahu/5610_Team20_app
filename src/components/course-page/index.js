@@ -39,7 +39,7 @@ const CoursePage = () => {
             Leave a Review
           </Link>
         </div>
-        <CourseInfo/>
+        <CourseInfo courseNumber={courseNumber} />
         <div className="fs-1 justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
             <div>Be the first one to review course {courseNumber}</div>

@@ -1,16 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
-const CourseInfo = () => {
-    const description = "Discusses Web development for sites that are dynamic, " +
-        "data driven, and interactive. Focuses on the software development issues " +
-        "of integrating multiple languages, assorted data technologies, and Web interaction. " +
-        "Considers ASP.NET, C#, HTTP, HTML, CSS, XML, XSLT, JavaScript, AJAX, RSS/Atom, SQL, " +
-        "and Web services. Each student must deploy individually designed Web experiments that " +
-        "illustrate the Web technologies and at least one major integrative Web site project. " +
-        "Students may work in teams with the permission of the instructor. Each student or team " +
-        "must also create extensive documentation of their goals, plans, design decisions, " +
-        "accomplishments, and user guidelines. All source files must be open and be automatically " +
-        "served by a sources server."
+const CourseInfo = ({ courseNumber }) => {
+    const [course, setCourse] = useState();
+    useEffect(() => {
+        axios
+            .get(`http://localhost:4001/courses/${courseNumber}`)
+            .then((response) => {
+                setCourse(response.data[0]);
+                return response.data[0];
+            });
+    }, [courseNumber]);
+
+    console.log(`http://localhost:4001/courses/${courseNumber}`);
+    console.log("[CourseInfo] courseNumber", courseNumber);
+    console.log("[CourseInfo] course", course);
 
     return(
         <div className="align-items-center mt-4">
@@ -20,15 +24,25 @@ const CourseInfo = () => {
 
             <br/>
             <div className="ms-2 me-3 fw-bold">Credit Hour(s)</div>
-            <div className="ms-3 me-3 fw-normal">4</div>
+            {course && (
+                <div className="ms-3 me-3 fw-normal">{course.creditHour}</div>
+            )}
             <div className="ms-2 me-3 fw-bold">Instructor(s)</div>
-            <div className="ms-3 me-3 fw-normal">Jose Annunziato</div>
+            {course && (
+                <div className="ms-3 me-3 fw-normal">{course.professors[0]}</div>
+            )}
             <div className="ms-2 me-3 fw-bold">Location(s)</div>
-            <div className="ms-3 me-3 fw-normal">Boston</div>
+            {course && (
+                <div className="ms-3 me-3 fw-normal">{course.locations[0]}</div>
+            )}
             <div className="ms-2 me-3 fw-bold">Instructional Method(s)</div>
-            <div className="ms-3 me-3 fw-normal">Online</div>
+            {course && (
+                <div className="ms-3 me-3 fw-normal">{course.instructionalMethods[0]}</div>
+            )}
             <div className="ms-2 me-3 fw-bold">Description</div>
-            <div className="ms-3 me-3 fw-normal">{description}</div>
+            {course && (
+                <div className="ms-3 me-3 fw-normal">{course.description}</div>
+            )}
             <br/>
             <div className="ms-2 me-3 fw-bold">Student Review(s)</div>
         </div>
