@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import Header from "../header";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
+import { Link } from "react-router-dom";
 
 const HomeComponent = () => {
+  const { currentUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileThunk());
@@ -12,17 +14,32 @@ const HomeComponent = () => {
     <>
       <Header />
       <div className="container">
-        <div className="fw-bold mt-2 mb-5">
-          <div className="fs-1 d-flex justify-content-center align-items-center">
+        <div className="fw-bold display-4 mt-5 mb-5">
+          <div className="d-flex justify-content-center align-items-center mb-4">
             Rate Your Courses
           </div>
-          <div className="fs-1 d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center mb-4">
             Find Your Next Courses
           </div>
-          <div className="fs-1 d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center">
             Boost Your Learning
           </div>
         </div>
+        {currentUser && (
+          <div className="d-flex justify-content-center align-items-center display-6">
+            <div>Welcome back, {currentUser.username}</div>
+          </div>
+        )}
+        {!currentUser && (
+          <div className="d-flex justify-content-center align-items-center display-6">
+            <div>
+              <Link className="" to="/signup">
+                Sign up
+              </Link>{" "}
+              to leave a review
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
