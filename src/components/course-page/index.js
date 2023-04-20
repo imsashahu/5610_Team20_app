@@ -63,8 +63,8 @@ const CoursePage = () => {
           <div>{`Course ${courseNumber} - ${courseName}`}</div>
         </div>
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-          {/* <button - Post A Review> */}
-          {!currentUser ? (
+          {/* <button - Post A Review - warning for not logged in user> */}
+          {!currentUser && (
             <button
               className="btn btn-warning"
               onClick={() => {
@@ -84,7 +84,10 @@ const CoursePage = () => {
             >
               Leave a Review
             </button>
-          ) : (
+          )}
+
+          {/* button - Post A Review - logged in, role is either "STUDENT" or "ADMIN" */}
+          {currentUser &&
             (currentUser.role === "STUDENT" ||
               currentUser.role === "ADMIN") && (
               <button
@@ -93,8 +96,7 @@ const CoursePage = () => {
               >
                 Leave a Review
               </button>
-            )
-          )}
+            )}
 
           {/* <button - Edit Course> */}
           {currentUser &&
