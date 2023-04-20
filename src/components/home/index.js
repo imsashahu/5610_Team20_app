@@ -26,8 +26,10 @@ const HomeComponent = () => {
     <>
       <Header />
       <div className="container">
+        {/* No user logged in */}
         {!currentUser && <LoggedOutHome />}
 
+        {/* User logged in. Show user's role and user name */}
         {currentUser && (
           <div className="d-flex flex-column justify-content-center align-items-center fs-3 mt-5">
             <div className="fs-3">
@@ -39,14 +41,17 @@ const HomeComponent = () => {
           </div>
         )}
 
+        {/* "STUDENT" role */}
         {currentUser && currentUser.role === "STUDENT" && (
           <StudentLoggedInHome />
         )}
 
+        {/* "PROFESSOR" role */}
         {currentUser && currentUser.role === "PROFESSOR" && (
           <ProfessorLoggedInHome />
         )}
 
+        {/* "ADMIN" role */}
         {currentUser && currentUser.role === "ADMIN" && <AdminLoggedInHome />}
       </div>
     </>
