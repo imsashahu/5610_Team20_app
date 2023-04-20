@@ -12,6 +12,7 @@ import axios from "axios";
 const AddReview = () => {
   const { currentUser } = useSelector((state) => state.users);
   const [courseNumber, setCourseNumber] = useState(0);
+  console.log("courseNumber", courseNumber);
   const [professor, setProfessor] = useState("");
   const [yearTaken, setYearTaken] = useState(2023);
   const [rate, setRate] = useState(1);
@@ -110,10 +111,16 @@ const AddReview = () => {
               setCourseNumber(e.target.value);
             }}
           >
-            <option selected>Select Course</option>
+            <option selected value={null}>
+              Select Course
+            </option>
             {!isLoading &&
-              data.map((courseNumber) => {
-                return <option value={courseNumber}>{courseNumber}</option>;
+              data.map((course) => {
+                return (
+                  <option value={course.courseNumber}>
+                    {course.courseNumber}
+                  </option>
+                );
               })}
           </select>
         </div>
