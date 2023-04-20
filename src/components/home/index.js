@@ -64,7 +64,7 @@ const HomeComponent = () => {
           <div className="fs-4">
             <div className="d-flex justify-content-center align-items-center">
               <div>
-                <Link className="" to="/login">
+                <Link className="text-dark fw-bold" to="/login">
                   Login
                 </Link>{" "}
                 to leave a review
@@ -72,7 +72,7 @@ const HomeComponent = () => {
             </div>
             <div className="d-flex justify-content-center align-items-center">
               <div>
-                <Link className="" to="/signup">
+                <Link className="text-dark fw-bold" to="/signup">
                   Sign up
                 </Link>{" "}
                 if you do not have an account

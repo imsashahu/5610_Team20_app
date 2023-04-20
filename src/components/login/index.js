@@ -5,7 +5,7 @@ import { loginThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -32,7 +32,7 @@ const LoginComponent = () => {
         {/*<div className="fw-bold mt-2 mb-5">*/}
         {/*  <h3>Login with username and password.</h3>*/}
         {/*</div>*/}
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label>Username</label>
           <input
             type="text"
@@ -43,7 +43,8 @@ const LoginComponent = () => {
             }}
           />
         </div>
-        <div className="form-group">
+
+        <div className="form-group mt-3">
           <label>Password</label>
           <input
             type="password"
@@ -54,16 +55,17 @@ const LoginComponent = () => {
             }}
           />
         </div>
-        <div className={"d-flex justify-content-center"}>
+
+        <div className={"d-flex justify-content-center mt-4"}>
           <button onClick={login} className="btn btn-warning mt-2">
             Login
           </button>
-
         </div>
-        <div className={"d-flex justify-content-center text-secondary"}>
-          Don't have an account? <Link to="/signup">Click Sign-up!</Link>
+        <div className={"d-flex justify-content-center text-secondary mt-3"}>
+          <span className="me-2">Don't have an account? </span>
+          <Link to="/signup">Click Sign-up!</Link>
         </div>
-        <br/>
+        <br />
         <div>
           {currentUser && (
             <div>
