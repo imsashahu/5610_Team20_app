@@ -12,6 +12,7 @@ import Signup from "./components/signup";
 import axios from "axios";
 import CoursePage from "./components/course-page";
 import EditProfile from "./components/profile/edit-profile";
+import EditCourse from "./components/course-page/edit-course";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
@@ -81,6 +82,7 @@ const router = createBrowserRouter(
       />
       <Route path="details/:courseNumber/add-review" element={<AddReview />} />
       <Route path="add-review" element={<AddReview />} />
+      <Route path="edit-course" element={<EditCourse />} />
       <Route
         path="/search"
         element={<Search />}

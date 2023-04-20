@@ -15,7 +15,7 @@ const ProfileSummaryItem = () => {
   return (
     <>
       <div className="card container border-white">
-        <div className="card-body" style={{ textAlign: "right" }}>
+        <div className="card-body" style={{ textAlign: "left" }}>
           <div className="fw-bold mb-2" style={{ fontSize: "20px" }}>
             <FontAwesomeIcon icon={faUser} className="me-2" />
             {currentUser ? currentUser.role : "Undefined"}{" "}
