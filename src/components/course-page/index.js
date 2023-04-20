@@ -3,9 +3,9 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Header from "../header";
 import ReviewCard from "../review-card";
 import CourseInfo from "./course-info";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const CoursePage = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -49,8 +49,8 @@ const CoursePage = () => {
                     </Link>
                     &nbsp;to post a review.
                   </div>,
-                {
-                    className: 'custom-toast'
+                  {
+                    className: "custom-toast",
                   }
                 );
               } else {
@@ -59,6 +59,31 @@ const CoursePage = () => {
             }}
           >
             Leave a Review
+          </button>
+
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => {
+              if (!currentUser) {
+                // toast("Please log in to post a review.");
+                toast.error(
+                  <div>
+                    Please&nbsp;
+                    <Link to="/login" className="toast-link">
+                      log in
+                    </Link>
+                    &nbsp;to post a review.
+                  </div>,
+                  {
+                    className: "custom-toast",
+                  }
+                );
+              } else {
+                navigate("/edit-course");
+              }
+            }}
+          >
+            Edit Course Description
           </button>
         </div>
         <CourseInfo course={courseInfo} />

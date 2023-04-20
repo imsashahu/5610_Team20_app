@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk, profileThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
@@ -62,11 +62,8 @@ const AddReview = () => {
       <div className="container">
         <div className="row mb-2 d-flex justify-content-between">
           <div className="w-auto mt-2">
-            <button
-              className="btn btn-warning"
-              onClick={() => navigate(-1)}
-            >
-              Back to Review
+            <button className="btn btn-warning" onClick={() => navigate(-1)}>
+              Back
             </button>
           </div>
           <div className="w-auto mt-2">
@@ -84,14 +81,9 @@ const AddReview = () => {
                   professor === "" ||
                   review === ""
                 ) {
-                  toast.error(
-                    <div>
-                      Please enter all the required information.
-                    </div>,
-                    {
-                      className: 'custom-toast'
-                    }
-                  );
+                  toast.error(<div>Please enter all fields.</div>, {
+                    className: "custom-toast",
+                  });
                 } else if (!currentUser) {
                   console.log("Current user is null!");
                   navigate(-1);
