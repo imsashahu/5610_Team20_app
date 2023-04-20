@@ -36,7 +36,9 @@ const CourseReviewResult = ({ courseReviews }) => {
                 <td scope="row">{course.courseNumber}</td>
                 <td>{course.courseName}</td>
                 <td>{course.professors[0]}</td>
-                <td style={{ textAlign: "center" }}>{course.averageRate}</td>
+                <td style={{ textAlign: "center" }}>
+                  {course.averageRate.toFixed(1)}
+                </td>
                 <td style={{ textAlign: "center" }}>{course.numOfReviews}</td>
               </tr>
             ))}
