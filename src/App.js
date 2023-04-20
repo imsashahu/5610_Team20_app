@@ -17,6 +17,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
 import { search } from "fontawesome";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const debug = false;
 
@@ -110,12 +111,16 @@ const store = configureStore({
   },
 });
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </QueryClientProvider>
     </>
   );
 }

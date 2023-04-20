@@ -6,6 +6,8 @@ import { loginThunk, profileThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addReview } from "../../services/reviews/reviews-service";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const AddReview = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -44,6 +46,15 @@ const AddReview = () => {
     const returnedCourse = await addReview(reviewData);
     console.log("[PostReview]returnedCourse", returnedCourse);
   };
+
+  const { isLoading, error, data } = useQuery("profile", async () => {
+    return axios
+      .get("http://localhost:4001/all-course-numbers")
+      .then((response) => {
+        console.log("Loding data use react-query", response.data);
+        return response.data;
+      });
+  });
 
   return (
     <div>
@@ -89,6 +100,24 @@ const AddReview = () => {
         {/*Course Number*/}
         <div className="form-group">
           <label className="fs-5 mt-4">Course Number</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={(e) => {
+              console.log("course number is set to", e.target.value);
+              setCourseNumber(e.target.value);
+            }}
+          >
+            <option selected>Select Course</option>
+            {!isLoading &&
+              data.map((courseNumber) => {
+                return <option value={courseNumber}>{courseNumber}</option>;
+              })}
+          </select>
+        </div>
+
+        {/* <div className="form-group">
+          <label className="fs-4">Course Number</label>
           <input
             type="number"
             className="form-control"
@@ -97,7 +126,7 @@ const AddReview = () => {
               setCourseNumber(e.target.value);
             }}
           />
-        </div>
+        </div> */}
 
         {/*Professor*/}
         <div className="form-group">
