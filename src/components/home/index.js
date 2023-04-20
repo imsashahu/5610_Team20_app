@@ -55,14 +55,24 @@ const HomeComponent = () => {
           </div>
         )}
         {!currentUser && (
-          <div className="d-flex justify-content-center align-items-center display-6">
-            <div>
-              <Link className="" to="/signup">
-                Sign up
-              </Link>{" "}
-              to leave a review
+          <>
+            <div className="d-flex justify-content-center align-items-center display-6">
+              <div>
+                <Link className="" to="/login">
+                  Login
+                </Link>{" "}
+                to leave a review
+              </div>
             </div>
-          </div>
+            <div className="d-flex justify-content-center align-items-center display-6">
+              <div>
+                <Link className="" to="/signup">
+                  Sign up
+                </Link>{" "}
+                if you do not have an account
+              </div>
+            </div>
+          </>
         )}
       </div>
     </>
