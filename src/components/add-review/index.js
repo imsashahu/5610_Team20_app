@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../header";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {loginThunk, profileThunk} from "../../services/users/users-thunks";
+import { useDispatch, useSelector } from "react-redux";
+import { loginThunk, profileThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {addReview} from "../../services/reviews/reviews-service";
+import { addReview } from "../../services/reviews/reviews-service";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const AddReview = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -38,12 +40,21 @@ const AddReview = () => {
       easiness,
       usefulness,
       review,
-      postedBy: currentUser._id
-    }
+      postedBy: currentUser._id,
+    };
     console.log("[PostReview]reviewData", reviewData);
     const returnedCourse = await addReview(reviewData);
     console.log("[PostReview]returnedCourse", returnedCourse);
-  }
+  };
+
+  const { isLoading, error, data } = useQuery("profile", () => {
+    return axios
+      .get("http://localhost:4001/all-course-numbers")
+      .then((response) => {
+        console.log("Loding data use react-query", response.data);
+        return response.data;
+      });
+  });
 
   return (
     <div>
@@ -52,8 +63,26 @@ const AddReview = () => {
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
           <div>Leave A Review</div>
         </div>
+
         {/*Course Number*/}
         <div className="form-group">
+          <label className="fs-4">Course Number</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={(e) => {
+              console.log("course number is set to", e.target.value);
+              setCourseNumber(e.target.value);
+            }}
+          >
+            <option selected>Open this select menu</option>
+            {data.map((courseNumber) => {
+              return <option value={courseNumber}>{courseNumber}</option>;
+            })}
+          </select>
+        </div>
+
+        {/* <div className="form-group">
           <label className="fs-4">Course Number</label>
           <input
             type="number"
@@ -63,7 +92,7 @@ const AddReview = () => {
               setCourseNumber(e.target.value);
             }}
           />
-        </div>
+        </div> */}
 
         {/*Professor*/}
         <div className="form-group">
@@ -171,19 +200,26 @@ const AddReview = () => {
           <Link to={prePath} className="btn btn-outline-primary">
             Go back to review page
           </Link>
-          <button className="btn btn-warning mt-2"
-                  onClick={async () => {
-                    if (!courseNumber || courseNumber === 0 || professor === "" || review === "") {
-                      toast("Please enter all the required information.");
-                    } else if (!currentUser) {
-                      console.log("Current user is null!");
-                      navigate(prePath);
-                    } else {
-                      await postReview();
-                      console.log("Successfully posted a new review!");
-                      navigate(prePath);
-                    }
-                  }}>
+          <button
+            className="btn btn-warning mt-2"
+            onClick={async () => {
+              if (
+                !courseNumber ||
+                courseNumber === 0 ||
+                professor === "" ||
+                review === ""
+              ) {
+                toast("Please enter all the required information.");
+              } else if (!currentUser) {
+                console.log("Current user is null!");
+                navigate(prePath);
+              } else {
+                await postReview();
+                console.log("Successfully posted a new review!");
+                navigate(prePath);
+              }
+            }}
+          >
             Post Review
           </button>
         </div>
