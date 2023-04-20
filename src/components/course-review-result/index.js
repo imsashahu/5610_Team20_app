@@ -29,8 +29,8 @@ const CourseReviewResult = ({ courseReviews }) => {
                 </th>
                 <td>{course.courseName}</td>
                 <td>{course.professors[0]}</td>
-                <td>{course.averageRate}</td>
-                <td>{course.numOfReviews}</td>
+                <td style={{ textAlign: "center" }}>{course.averageRate}</td>
+                <td style={{ textAlign: "center" }}>{course.numOfReviews}</td>
               </tr>
             ))}
           </tbody>

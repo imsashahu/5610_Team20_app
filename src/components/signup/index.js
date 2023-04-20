@@ -40,19 +40,18 @@ const SignupComponent = () => {
     <>
       <Header />
       <div className="container">
-        <div className="fw-bold mt-2 mb-5">
-          <h3>Sign Up</h3>
-        </div>
-        <div className="form-group">
-          <label>Role</label><br/>
+        <div className="form-group mt-3">
+          <label>Role</label>
+          <br />
           <select className={"form-control"}>
             <option value="faculty">FACULTY</option>
             <option selected value="student">
-              STUDENT</option>
-
+              STUDENT
+            </option>
           </select>
         </div>
-        <div className="form-group">
+
+        <div className="form-group mt-3">
           <label>Email</label>
           <input
             type="text"
@@ -63,7 +62,8 @@ const SignupComponent = () => {
             }}
           />
         </div>
-        <div className="form-group">
+
+        <div className="form-group mt-3">
           <label>Username</label>
           <input
             type="text"
@@ -74,7 +74,8 @@ const SignupComponent = () => {
             }}
           />
         </div>
-        <div className="form-group">
+
+        <div className="form-group mt-3">
           <label>Password</label>
           <input
             type="password"
@@ -85,7 +86,8 @@ const SignupComponent = () => {
             }}
           />
         </div>
-        <div className="form-group">
+
+        <div className="form-group mt-3">
           <label>Repeat Password</label>
           <input
             type="password"
@@ -96,9 +98,13 @@ const SignupComponent = () => {
             }}
           />
         </div>
-        <button onClick={signUp} className="btn btn-warning mt-2">
-          Sign Up!
-        </button>
+
+        <div className={"d-flex justify-content-center mt-4"}>
+          <button onClick={signUp} className="btn btn-warning mt-2">
+            Sign Up!
+          </button>
+        </div>
+
         <div>
           {currentUser && (
             <div>
