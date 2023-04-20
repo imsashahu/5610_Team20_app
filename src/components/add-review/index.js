@@ -47,7 +47,7 @@ const AddReview = () => {
     console.log("[PostReview]returnedCourse", returnedCourse);
   };
 
-  const { isLoading, error, data } = useQuery("profile", () => {
+  const { isLoading, error, data } = useQuery("profile", async () => {
     return axios
       .get("http://localhost:4001/all-course-numbers")
       .then((response) => {
@@ -76,9 +76,10 @@ const AddReview = () => {
             }}
           >
             <option selected>Open this select menu</option>
-            {data.map((courseNumber) => {
-              return <option value={courseNumber}>{courseNumber}</option>;
-            })}
+            {!isLoading &&
+              data.map((courseNumber) => {
+                return <option value={courseNumber}>{courseNumber}</option>;
+              })}
           </select>
         </div>
 
