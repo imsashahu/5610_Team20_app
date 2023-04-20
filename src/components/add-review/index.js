@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../header";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {loginThunk, profileThunk} from "../../services/users/users-thunks";
+import { useDispatch, useSelector } from "react-redux";
+import { loginThunk, profileThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {addReview} from "../../services/reviews/reviews-service";
+import { addReview } from "../../services/reviews/reviews-service";
 
 const AddReview = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -38,23 +38,57 @@ const AddReview = () => {
       easiness,
       usefulness,
       review,
-      postedBy: currentUser._id
-    }
+      postedBy: currentUser._id,
+    };
     console.log("[PostReview]reviewData", reviewData);
     const returnedCourse = await addReview(reviewData);
     console.log("[PostReview]returnedCourse", returnedCourse);
-  }
+  };
 
   return (
     <div>
       <Header />
       <div className="container">
-        <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-          <div>Leave A Review</div>
+        <div className="row mb-2 d-flex justify-content-between">
+          <div className="w-auto mt-2">
+            <Link to={prePath} type="button" className="btn btn-warning">
+              Back to Review
+            </Link>
+          </div>
+          <div className="w-auto mt-2">
+            <div className="fw-bold">
+              <h3>Leave A Review</h3>
+            </div>
+          </div>
+          <div className="w-auto mt-2">
+            <button
+              className="btn btn-warning"
+              onClick={async () => {
+                if (
+                  !courseNumber ||
+                  courseNumber === 0 ||
+                  professor === "" ||
+                  review === ""
+                ) {
+                  toast("Please enter all the required information.");
+                } else if (!currentUser) {
+                  console.log("Current user is null!");
+                  navigate(prePath);
+                } else {
+                  await postReview();
+                  console.log("Successfully posted a new review!");
+                  navigate(prePath);
+                }
+              }}
+            >
+              Post Review
+            </button>
+          </div>
         </div>
+
         {/*Course Number*/}
         <div className="form-group">
-          <label className="fs-4">Course Number</label>
+          <label className="fs-5 mt-4">Course Number</label>
           <input
             type="number"
             className="form-control"
@@ -67,7 +101,7 @@ const AddReview = () => {
 
         {/*Professor*/}
         <div className="form-group">
-          <label className="fs-4">Professor</label>
+          <label className="fs-5 mt-4">Professor</label>
           <input
             type="text"
             className="form-control"
@@ -80,7 +114,7 @@ const AddReview = () => {
 
         {/*Year Taken*/}
         <div className="form-group">
-          <label className="fs-4">Year Taken</label>
+          <label className="fs-5 mt-4">Year Taken</label>
           <input
             type="number"
             className="form-control"
@@ -99,64 +133,91 @@ const AddReview = () => {
 
         {/*Rate*/}
         <div className="form-group">
-          <label className="fs-4">Rate (1 - 5)</label>
-          <input
-            type="number"
-            className="form-control"
-            min="1"
-            max="5"
-            step="1"
-            value={rate}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (value >= 1 && value <= 5) {
-                setRate(value);
-              }
-            }}
-          />
+          <label className="fs-5 mt-4">Rate</label>
+          <div>
+            <input
+              type="range"
+              className="form-range"
+              min="1"
+              max="5"
+              step="1"
+              value={rate}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (value >= 1 && value <= 5) {
+                  setRate(value);
+                }
+              }}
+            />
+            <div className="legend-container d-flex justify-content-between">
+              <div className="legend">1</div>
+              <div className="legend">2</div>
+              <div className="legend">3</div>
+              <div className="legend">4</div>
+              <div className="legend">5</div>
+            </div>
+          </div>
         </div>
 
         {/*Easiness*/}
         <div className="form-group">
-          <label className="fs-4">Easiness (1 - 5)</label>
-          <input
-            type="number"
-            className="form-control"
-            min="1"
-            max="5"
-            step="1"
-            value={easiness}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (value >= 1 && value <= 5) {
-                setEasiness(value);
-              }
-            }}
-          />
+          <label className="fs-5 mt-4">Easiness</label>
+          <div>
+            <input
+              type="range"
+              className="form-range"
+              min="1"
+              max="5"
+              step="1"
+              value={easiness}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (value >= 1 && value <= 5) {
+                  setEasiness(value);
+                }
+              }}
+            />
+            <div className="legend-container d-flex justify-content-between">
+              <div className="legend">1</div>
+              <div className="legend">2</div>
+              <div className="legend">3</div>
+              <div className="legend">4</div>
+              <div className="legend">5</div>
+            </div>
+          </div>
         </div>
 
         {/*Usefulness*/}
         <div className="form-group">
-          <label className="fs-4">Usefulness (1 - 5)</label>
-          <input
-            type="number"
-            className="form-control"
-            min="1"
-            max="5"
-            step="1"
-            value={usefulness}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (value >= 1 && value <= 5) {
-                setUsefulness(value);
-              }
-            }}
-          />
+          <label className="fs-5 mt-4">Usefulness</label>
+          <div>
+            <input
+              type="range"
+              className="form-range"
+              min="1"
+              max="5"
+              step="1"
+              value={usefulness}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (value >= 1 && value <= 5) {
+                  setUsefulness(value);
+                }
+              }}
+            />
+            <div className="legend-container d-flex justify-content-between">
+              <div className="legend">1</div>
+              <div className="legend">2</div>
+              <div className="legend">3</div>
+              <div className="legend">4</div>
+              <div className="legend">5</div>
+            </div>
+          </div>
         </div>
 
         {/*Review*/}
         <div className="form-group">
-          <label className="fs-4">Review</label>
+          <label className="fs-5 mt-4">Review</label>
           <textarea
             type="text"
             className="form-control"
@@ -166,26 +227,6 @@ const AddReview = () => {
               setReview(e.target.value);
             }}
           />
-        </div>
-        <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-          <Link to={prePath} className="btn btn-outline-primary">
-            Go back to review page
-          </Link>
-          <button className="btn btn-warning mt-2"
-                  onClick={async () => {
-                    if (!courseNumber || courseNumber === 0 || professor === "" || review === "") {
-                      toast("Please enter all the required information.");
-                    } else if (!currentUser) {
-                      console.log("Current user is null!");
-                      navigate(prePath);
-                    } else {
-                      await postReview();
-                      console.log("Successfully posted a new review!");
-                      navigate(prePath);
-                    }
-                  }}>
-            Post Review
-          </button>
         </div>
       </div>
       <ToastContainer />
