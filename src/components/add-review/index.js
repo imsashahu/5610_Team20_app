@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header";
-import { useLocation, useNavigate } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk, profileThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
@@ -84,7 +84,14 @@ const AddReview = () => {
                   professor === "" ||
                   review === ""
                 ) {
-                  toast("Please enter all the required information.");
+                  toast.error(
+                    <div>
+                      Please enter all the required information.
+                    </div>,
+                    {
+                      className: 'custom-toast'
+                    }
+                  );
                 } else if (!currentUser) {
                   console.log("Current user is null!");
                   navigate(-1);
