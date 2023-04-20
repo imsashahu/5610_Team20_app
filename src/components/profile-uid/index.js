@@ -1,21 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../header";
 import { useDispatch, useSelector } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPaperPlane,
-  faHeart,
-  faMagnifyingGlassArrowRight,
-  faThumbsUp,
-  faUser,
-  faMessage,
-} from "@fortawesome/free-solid-svg-icons";
+import { profileThunk } from "../../services/users/users-thunks";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const ProfileUID = () => {
   const data = useLoaderData();
   console.log("Profile per UID data", data);
+  const { currentUser } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(profileThunk());
+  }, []);
   return (
     <div style={{ "overflow-y": "scroll" }}>
       <Header />
