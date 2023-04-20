@@ -19,6 +19,7 @@ const ReviewCard = ({ review }) => {
   }, []);
 
   console.log("[ReiewCard] currentUser", currentUser);
+  console.log(review);
 
   return (
     <>
@@ -26,7 +27,7 @@ const ReviewCard = ({ review }) => {
         className="card text-bg-light border-light mb-3"
         style={{ width: "100%" }}
       >
-        <div class="card-header" style={{ fontSize: "15px" }}>
+        <div className="card-header" style={{ fontSize: "15px" }}>
           Prof. {review.professor},{" "}
           <a
             href={`/details/${review.courseNumber}`}
@@ -36,14 +37,49 @@ const ReviewCard = ({ review }) => {
           </a>
         </div>
 
-        <div class="card-body">
-          <p class="card-text" style={{ fontSize: "15px" }}>
+        <div className="card-body">
+          <div className="card-text mb-2" style={{ fontSize: "15px" }}>
             {review.review}
-          </p>
+          </div>
+
+          <div
+            className="card-text d-flex justify-content-between fw-bold"
+            style={{ fontSize: "15px" }}
+          >
+            <span>
+              Rate{" "}
+              <span
+                className="badge text-dark rounded-pill ps-3 pe-3 ms-2"
+                style={{ fontSize: "16px", backgroundColor: "lightgrey" }}
+              >
+                {review.rate}
+              </span>
+            </span>
+
+            <span>
+              Easiness{" "}
+              <span
+                className="badge text-dark rounded-pill ps-3 pe-3 ms-2"
+                style={{ fontSize: "16px", backgroundColor: "lightgrey" }}
+              >
+                {review.easiness}
+              </span>
+            </span>
+
+            <span>
+              Usefulness{" "}
+              <span
+                className="badge text-dark rounded-pill ps-3 pe-3 ms-2"
+                style={{ fontSize: "16px", backgroundColor: "lightgrey" }}
+              >
+                {review.usefulness}
+              </span>
+            </span>
+          </div>
         </div>
 
         <div
-          class="card-footer"
+          className="card-footer"
           style={{ fontSize: "12px", textAlign: "right" }}
         >
           <span>Posted by: @</span>
