@@ -14,6 +14,12 @@ const HomeComponent = () => {
     <>
       <Header />
       <div className="container">
+        <div className="d-flex justify-content-center align-items-center mt-5">
+          <img
+            src="/images/khoury-college.png"
+            className="bg-dark border border-dark border-5"
+          />
+        </div>
         <div className="fw-bold display-4 mt-5 mb-5 text-dark">
           <div className="d-flex justify-content-center align-items-center mb-4">
             <img
@@ -44,7 +50,7 @@ const HomeComponent = () => {
           </div>
         </div>
         {currentUser && (
-          <div className="d-flex flex-column justify-content-center align-items-center display-6">
+          <div className="d-flex flex-column justify-content-center align-items-center fs-4">
             <div>
               Welcome back,{" "}
               <Link className="text-dark" to="/profile">
@@ -55,8 +61,8 @@ const HomeComponent = () => {
           </div>
         )}
         {!currentUser && (
-          <>
-            <div className="d-flex justify-content-center align-items-center display-6">
+          <div className="fs-4">
+            <div className="d-flex justify-content-center align-items-center">
               <div>
                 <Link className="" to="/login">
                   Login
@@ -64,7 +70,7 @@ const HomeComponent = () => {
                 to leave a review
               </div>
             </div>
-            <div className="d-flex justify-content-center align-items-center display-6">
+            <div className="d-flex justify-content-center align-items-center">
               <div>
                 <Link className="" to="/signup">
                   Sign up
@@ -72,7 +78,7 @@ const HomeComponent = () => {
                 if you do not have an account
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </>
