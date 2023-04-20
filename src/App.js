@@ -70,10 +70,10 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
-        path="/details/:courseNumber"
+        path="/details/:courseNumberInPath"
         element={<CoursePage />}
         loader={async ({ params, request }) => {
-          let axiosUrl = `http://localhost:4001/courses/${params.courseNumber}`;
+          let axiosUrl = `http://localhost:4001/courses/${params.courseNumberInPath}`;
           return axios.get(axiosUrl).then((res) => {
             debug && console.log("courses", res.data);
             return res;
@@ -82,7 +82,7 @@ const router = createBrowserRouter(
       />
       <Route path="details/:courseNumber/add-review" element={<AddReview />} />
       <Route path="add-review" element={<AddReview />} />
-      <Route path="edit-course" element={<EditCourse />} />
+      <Route path=":courseNumberInPath/edit-course" element={<EditCourse />} />
       <Route
         path="/search"
         element={<Search />}

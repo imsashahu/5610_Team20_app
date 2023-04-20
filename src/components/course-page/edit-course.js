@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useParams,
+  redirect,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk, profileThunk } from "../../services/users/users-thunks";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,10 +15,12 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 const EditCourse = () => {
+  const { courseNumberInPath } = useParams();
+
   const { currentUser } = useSelector((state) => state.users);
   const [courseNumber, setCourseNumber] = useState(0);
-  const [creditHour, setCreditHour] = useState("");
-  const [professors, setProfessors] = useState("");
+  const [creditHour, setCreditHour] = useState(0);
+  const [professors, setProfessors] = useState([]);
   const [locations, setLocations] = useState("");
   const [instructionalMethods, setInstructionalMethods] = useState("");
   const [description, setDescription] = useState("");
@@ -21,19 +29,32 @@ const EditCourse = () => {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(profileThunk());
+    axios
+      .get(`http://localhost:4001/courses/${courseNumberInPath}`)
+      .then((response) => {
+        console.log("Loding data use react-query", response.data);
+        const course = response.data[0];
+        console.log("[useEffect] course", course);
+        setCourseNumber(course.courseNumber);
+        setCreditHour(course.creditHour);
+        setProfessors(course.professors);
+        setLocations(course.locations);
+        setInstructionalMethods(course.instructionalMethods);
+        setDescription(course.description);
+      });
   }, []);
-  const path = useLocation().pathname;
-  const lastSlashIndex = path.lastIndexOf("/");
-  const prePath = path.substring(0, lastSlashIndex);
-  console.log("path", path);
-  console.log("prePath", prePath);
 
-  const postCourseEdit = async () => {
-    console.log("[PostReview]currentUser", currentUser);
-    console.log("[PostReview]currentUser._id", currentUser._id);
-    const courseData = {};
-    const returnedCourse = await editCourseService(courseData);
-    console.log("[EditCourse]returnedCourse", returnedCourse);
+  const updateCourse = async () => {
+    const updateData = {
+      courseNumber,
+      creditHour,
+      professors,
+      locations,
+      instructionalMethods,
+      description,
+      currentUser,
+    };
+    axios.put(`http://localhost:4001/courses/${courseNumber}`, updateData);
   };
 
   return (
@@ -55,24 +76,17 @@ const EditCourse = () => {
             <button
               className="btn btn-warning"
               onClick={async () => {
-                if (
-                  !creditHour ||
-                  creditHour === 0 ||
-                  description === "" ||
-                  professors.length === 0 ||
-                  locations.length === 0 ||
-                  instructionalMethods.length === 0
-                ) {
-                  toast.error(<div>Please enter all fields.</div>, {
-                    className: "custom-toast",
-                  });
+                if (false) {
+                  // toast.error(<div>Please enter all fields.</div>, {
+                  //   className: "custom-toast",
+                  // });
                 } else if (!currentUser) {
                   console.log("Current user is null!");
-                  navigate(-1);
+                  navigate(`/details/${courseNumber}`);
                 } else {
-                  await postCourseEdit();
-                  console.log("Successfully edit the course description!");
-                  navigate(-1);
+                  updateCourse().then(() => {
+                    navigate(`/details/${courseNumber}`);
+                  });
                 }
               }}
             >
@@ -91,7 +105,7 @@ const EditCourse = () => {
               setCreditHour(parseInt(e.target.value));
             }}
           >
-            {[1, 2, 3, 4, 5].map((number) => (
+            {[0, 1, 2, 3, 4, 5].map((number) => (
               <option key={number} value={number}>
                 {number}
               </option>
