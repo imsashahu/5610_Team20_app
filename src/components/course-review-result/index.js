@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 import { isEmpty } from "../../utils";
 
 const CourseReviewResult = ({ courseReviews }) => {
+  const navigate = useNavigate();
   return (
     <>
       {!isEmpty(courseReviews) && (
@@ -18,19 +19,26 @@ const CourseReviewResult = ({ courseReviews }) => {
           </thead>
           <tbody>
             {courseReviews.data.map((course) => (
-              <tr key={course.courseNumber}>
-                <th scope="row">
-                  <Link
-                    to={`/details/${course.courseNumber}`}
-                    className="text-dark"
-                  >
-                    {course.courseNumber}
-                  </Link>
-                </th>
+              <tr
+                key={course.courseNumber}
+                onClick={() => {
+                  console.log("click row");
+                  navigate(`/details/${course.courseNumber}`);
+                }}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                {/* <Link
+                  to={`/details/${course.courseNumber}`}
+                  className="text-dark"
+                > */}
+                <td scope="row">{course.courseNumber}</td>
                 <td>{course.courseName}</td>
                 <td>{course.professors[0]}</td>
                 <td>{course.averageRate}</td>
                 <td>{course.numOfReviews}</td>
+                {/* </Link> */}
               </tr>
             ))}
           </tbody>

@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { isEmpty } from "../../utils";
 
 const YoutubeVideoResult = ({ youtubeVideos }) => {
+  const navigate = useNavigate();
   return (
     <>
       {!isEmpty(youtubeVideos) && (
@@ -15,7 +16,12 @@ const YoutubeVideoResult = ({ youtubeVideos }) => {
           </thead>
           <tbody>
             {youtubeVideos.data.items.map((video, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 <td scope="row">
                   <a
                     className="text-dark"
