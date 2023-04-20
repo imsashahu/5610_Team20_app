@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
-import CourseList from "./course-list";
 
 const ProfessorLoggedInHome = () => {
   const { currentUser } = useSelector((state) => state.users);
