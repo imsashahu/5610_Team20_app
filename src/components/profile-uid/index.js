@@ -19,35 +19,35 @@ const ProfileUID = () => {
   return (
     <div style={{ "overflow-y": "scroll" }}>
       <Header />
-      <div className="card container">
+      <div className="card container border-white">
         <div className="card-body">
           <h3 className="card-title">
-            <span className="me-2">
-              <FontAwesomeIcon
-                icon={faUser}
-                style={{ color: "rgb(228, 161, 27)" }}
-              />
-            </span>
-            User Information
+            <div className="fw-bold mb-4" style={{ fontSize: "25px" }}>
+              <FontAwesomeIcon icon={faUser} className="me-3" />
+              Public Profile Page
+            </div>
           </h3>
+
           <h4 className="card-title">
-            <span className="me-2 mt-5">
-              <FontAwesomeIcon
-                icon={faMagnifyingGlassArrowRight}
-                style={{ color: "rgb(228, 161, 27)" }}
-              />
-            </span>
-            @{data.data.username ? data.data.username : "Undefined"}
+            <div className="mb-2" style={{ fontSize: "18px" }}>
+              <span className="fw-bold">Username</span>: @
+              {data.data.username ? data.data.username : "Undefined"}
+            </div>
           </h4>
+
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="card-title">
-              <span className="me-2 mt-5">
-                <FontAwesomeIcon
-                  icon={faPaperPlane}
-                  style={{ color: "rgb(228, 161, 27)" }}
-                />
-              </span>
-              {data.data.email ? data.data.email : "Undefined"}
+              <div className="mb-2" style={{ fontSize: "18px" }}>
+                <span className="fw-bold">Email</span>:{" "}
+                {data.data.email ? data.data.email : "Undefined"}{" "}
+                <span> - </span>
+                <a
+                  href={`mailto:${data.data.email}?subject=Hello&body=Hi ${data.data.username},`}
+                  style={{ color: "black" }}
+                >
+                  Send Email
+                </a>
+              </div>
             </h4>
           </div>
         </div>
