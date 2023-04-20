@@ -33,10 +33,7 @@ const CoursePage = () => {
           <div>{`Course ${courseNumber} - ${courseName}`}</div>
         </div>
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-          <Link
-            to={`/details/${courseNumber}/add-review`}
-            className="btn btn-outline-primary"
-          >
+          <Link to={`/add-review`} className="btn btn-outline-primary">
             Leave a Review
           </Link>
         </div>
