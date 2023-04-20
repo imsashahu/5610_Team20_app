@@ -63,11 +63,11 @@ const CoursePage = () => {
           <div>{`Course ${courseNumber} - ${courseName}`}</div>
         </div>
         <div className="fs-1 d-flex justify-content-around align-items-center mt-4">
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => {
-              if (!currentUser) {
-                // toast("Please log in to post a review.");
+          {/* <button - Post A Review> */}
+          {!currentUser ? (
+            <button
+              className="btn btn-warning"
+              onClick={() => {
                 toast.error(
                   <div>
                     Please&nbsp;
@@ -80,38 +80,33 @@ const CoursePage = () => {
                     className: "custom-toast",
                   }
                 );
-              } else {
-                navigate("/add-review");
-              }
-            }}
-          >
-            Leave a Review
-          </button>
+              }}
+            >
+              Leave a Review
+            </button>
+          ) : (
+            (currentUser.role === "STUDENT" ||
+              currentUser.role === "ADMIN") && (
+              <button
+                className="btn btn-warning"
+                onClick={() => navigate("/add-review")}
+              >
+                Leave a Review
+              </button>
+            )
+          )}
 
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => {
-              if (!currentUser) {
-                // toast("Please log in to post a review.");
-                toast.error(
-                  <div>
-                    Please&nbsp;
-                    <Link to="/login" className="toast-link">
-                      log in
-                    </Link>
-                    &nbsp;to post a review.
-                  </div>,
-                  {
-                    className: "custom-toast",
-                  }
-                );
-              } else {
-                navigate(`/${courseNumber}/edit-course`);
-              }
-            }}
-          >
-            Edit Course Description
-          </button>
+          {/* <button - Edit Course> */}
+          {currentUser &&
+            (currentUser.role === "FACULTY" ||
+              currentUser.role === "ADMIN") && (
+              <button
+                className="btn btn-warning"
+                onClick={() => navigate(`/${courseNumber}/edit-course`)}
+              >
+                Edit Course Description
+              </button>
+            )}
         </div>
         <CourseInfo course={courseInfo} />
         <div className="fs-1 justify-content-around align-items-center mt-4">
