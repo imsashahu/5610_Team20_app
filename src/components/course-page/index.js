@@ -131,9 +131,7 @@ const CoursePage = () => {
         <br/>
 
         {/*relevant videos from YouTube*/}
-        { youtubeVideos !== [] && (
-            <div className="ms-2 me-3 fw-bold">Relevant Videos from YouTube</div>
-        )}
+        <div className="ms-2 me-3 fw-bold">Relevant Videos from YouTube</div>
         <YoutubeVideoResult youtubeVideos={youtubeVideos}/>
         <br/>
 
