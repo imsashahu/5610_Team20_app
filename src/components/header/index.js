@@ -28,19 +28,18 @@ const Header = () => {
               <use xlink:href="#bootstrap" />
             </svg>
           </a> */}
-
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li>
+              {currentUser && (
+                  <Link to="/profile" className="nav-link px-2 text-white">
+                    Hello {currentUser.username}!
+                  </Link>
+              )}
+            </li>
             <li>
               <Link to="/" className="nav-link px-2 text-white">
                 Home
               </Link>
-            </li>
-            <li>
-              {currentUser && (
-                <Link to="/profile" className="nav-link px-2 text-white">
-                  Profile
-                </Link>
-              )}
             </li>
             <li>
               <Link to="/search" className="nav-link px-2 text-white">
