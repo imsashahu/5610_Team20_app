@@ -15,25 +15,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import YoutubeVideoResult from "../youtube-video-result";
-
-const getYoutubeVideos = async (searchTerm) => {
-    const apiKey = process.env.REACT_APP_API_KEY;
-    console.log("[getYoutubeVideos in course page] apiKey", apiKey);
-    const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchTerm}&key=${apiKey}`;
-    console.log("[getYoutubeVideos in course page] searchTerm", searchTerm);
-    return axios
-        .get(apiUrl, {
-            headers: {
-                Accept: "application/json",
-            },
-        })
-        .then((response) => {
-            return response;
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-};
+import {getYoutubeVideos} from "../../utils";
 
 const CoursePage = () => {
   const { courseNumberInPath } = useParams();
@@ -72,7 +54,7 @@ const CoursePage = () => {
   useEffect(() => {
     const fetchYoutubeVideos = async () => {
       console.log("[fetchYoutubeVideos in course page] courseName", courseName);
-      const videos = await getYoutubeVideos(courseName);
+      const videos = await getYoutubeVideos(false, courseName);
       if (videos !== null && videos !== undefined) {
         setYoutubeVideos(videos);
       }

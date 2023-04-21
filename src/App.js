@@ -19,6 +19,7 @@ import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
 import { search } from "fontawesome";
 import { QueryClient, QueryClientProvider } from "react-query";
+import {getYoutubeVideos} from "./utils";
 
 const debug = false;
 
@@ -28,25 +29,6 @@ const getCourseReviews = async (searchTerm) => {
     debug && console.log("[getCourseReviews] courses", res.data);
     return res;
   });
-};
-
-const getYoutubeVideos = async (searchTerm) => {
-  const apiKey = process.env.REACT_APP_API_KEY;
-  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchTerm}&key=${apiKey}`;
-  debug && console.log("[getYoutubeVideos] searchTerm", searchTerm);
-  return axios
-    .get(apiUrl, {
-      headers: {
-        Accept: "application/json",
-      },
-    })
-    .then((response) => {
-      debug && console.log("[getYoutubeVideos]", response.data.items);
-      return response;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
 };
 
 const router = createBrowserRouter(
@@ -96,7 +78,7 @@ const router = createBrowserRouter(
           }
           let courseReviews = await getCourseReviews(searchTerm);
           let courseName = courseReviews.data[0].courseName;
-          let youtubeVideos = await getYoutubeVideos(courseName);
+          let youtubeVideos = await getYoutubeVideos(debug, courseName);
           let res = { courseReviews, youtubeVideos };
           debug && console.log("res", res);
           return res;
