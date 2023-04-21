@@ -40,8 +40,6 @@ const CourseInfo = ({ course }) => {
             {course && (
                 <div className="ms-3 me-3 fw-normal">{course.description}</div>
             )}
-            <br/>
-            <div className="ms-2 me-3 fw-bold">Student Review(s)</div>
         </div>
     );
 };
