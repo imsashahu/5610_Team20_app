@@ -14,6 +14,26 @@ import { profileThunk } from "../../services/users/users-thunks";
 import { toast, ToastContainer } from "react-toastify";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import YoutubeVideoResult from "../youtube-video-result";
+
+const getYoutubeVideos = async (searchTerm) => {
+    const apiKey = process.env.REACT_APP_API_KEY;
+    console.log("[getYoutubeVideos in course page] apiKey", apiKey);
+    const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchTerm}&key=${apiKey}`;
+    console.log("[getYoutubeVideos in course page] searchTerm", searchTerm);
+    return axios
+        .get(apiUrl, {
+            headers: {
+                Accept: "application/json",
+            },
+        })
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
 
 const CoursePage = () => {
   const { courseNumberInPath } = useParams();
@@ -49,11 +69,24 @@ const CoursePage = () => {
     }
   }, [location]);
 
+  useEffect(() => {
+    const fetchYoutubeVideos = async () => {
+      console.log("[fetchYoutubeVideos in course page] courseName", courseName);
+      const videos = await getYoutubeVideos(courseName);
+      if (videos !== null && videos !== undefined) {
+        setYoutubeVideos(videos);
+      }
+    };
+
+    fetchYoutubeVideos();
+  }, []);
+
   const data = useLoaderData();
   const [courseInfo, setCourseInfo] = useState(null);
   const [courseNumber, setCourseNumber] = useState(0);
   const [courseName, setCourseName] = useState("");
   const [reviews, setReviews] = useState([]);
+  const [youtubeVideos, setYoutubeVideos] = useState([]);
 
   return (
     <>
@@ -110,7 +143,20 @@ const CoursePage = () => {
               </button>
             )}
         </div>
+
+        {/*basic course information from our server*/}
         <CourseInfo course={courseInfo} />
+        <br/>
+
+        {/*relevant videos from YouTube*/}
+        { youtubeVideos !== [] && (
+            <div className="ms-2 me-3 fw-bold">Relevant Videos from YouTube</div>
+        )}
+        <YoutubeVideoResult youtubeVideos={youtubeVideos}/>
+        <br/>
+
+        {/*student review(s) from our server*/}
+        <div className="ms-2 me-3 fw-bold">Student Review(s)</div>
         <div className="fs-1 justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
             <div>Be the first one to review course {courseNumber}</div>
