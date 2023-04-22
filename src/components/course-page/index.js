@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
-import {
-  Link,
-  useLoaderData,
-  useNavigate,
-  useParams,
-  redirect,
-} from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../header";
 import ReviewCard from "../review-card";
 import CourseInfo from "./course-info";
 import { useDispatch, useSelector } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
 import { toast, ToastContainer } from "react-toastify";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const CoursePage = () => {
+  const navigate = useNavigate();
+
   const { courseNumberInPath } = useParams();
   const { currentUser } = useSelector((state) => state.users);
+
+  const [courseInfo, setCourseInfo] = useState(null);
+  const [courseNumber, setCourseNumber] = useState(0);
+  const [courseName, setCourseName] = useState("");
+  const [reviews, setReviews] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileThunk());
@@ -31,29 +31,6 @@ const CoursePage = () => {
         setCourseInfo(course);
       });
   }, []);
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (location.state && location.state.from === "previous-page") {
-      // Re-fetch data here
-      axios
-        .get(`http://localhost:4001/courses/${courseNumber}`)
-        .then((response) => {
-          const course = response.data[0];
-          setCourseNumber(course.courseNumber);
-          setCourseName(course.courseName);
-          setReviews(course.reviews);
-          setCourseInfo(course);
-        });
-    }
-  }, [location]);
-
-  const data = useLoaderData();
-  const [courseInfo, setCourseInfo] = useState(null);
-  const [courseNumber, setCourseNumber] = useState(0);
-  const [courseName, setCourseName] = useState("");
-  const [reviews, setReviews] = useState([]);
 
   return (
     <>
