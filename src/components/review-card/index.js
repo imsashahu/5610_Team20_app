@@ -44,7 +44,7 @@ const ReviewCard = ({ review }) => {
                 </a>
               </span>
 
-              {(currentUser && currentUser.role === "PROFESSOR") && (
+              {(currentUser && currentUser.role === "FACULTY") && (
                 <button
                   className="btn btn-danger"
                   onClick={async () => {
