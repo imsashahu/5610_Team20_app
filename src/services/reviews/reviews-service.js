@@ -10,3 +10,13 @@ export const addReview = async (reviewData) => {
         console.error(error);
     }
 };
+
+export const deleteReview = async (reviewData) => {
+    try {
+        const response = await axios.delete(`${COURSES_API_URL}/${reviewData.courseNumber}/reviews/${reviewData._id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
