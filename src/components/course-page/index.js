@@ -20,6 +20,7 @@ import {getYoutubeVideos} from "../../utils";
 const CoursePage = () => {
   const { courseNumberInPath } = useParams();
   const { currentUser } = useSelector((state) => state.users);
+  const [courseName, setCourseName] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileThunk());
@@ -32,6 +33,7 @@ const CoursePage = () => {
         setReviews(course.reviews);
         setCourseInfo(course);
       });
+    console.log("[fetchYoutubeVideos in course page] trace the change of courseName 1", courseName);
   }, []);
 
   const location = useLocation();
@@ -48,25 +50,28 @@ const CoursePage = () => {
           setReviews(course.reviews);
           setCourseInfo(course);
         });
+      console.log("[fetchYoutubeVideos in course page] trace the change of courseName 2", courseName);
     }
   }, [location]);
 
   useEffect(() => {
     const fetchYoutubeVideos = async () => {
-      console.log("[fetchYoutubeVideos in course page] courseName", courseName);
-      const videos = await getYoutubeVideos(false, courseName);
-      if (videos !== null && videos !== undefined) {
-        setYoutubeVideos(videos);
+      if (courseName !== null && courseName !== undefined && courseName !== "") {
+        console.log("[fetchYoutubeVideos in course page] trace the change of courseName 3", courseName);
+        const videos = await getYoutubeVideos(false, courseName);
+        console.log("[fetchYoutubeVideos in course page] videos", videos);
+        if (videos !== null && videos !== undefined) {
+          setYoutubeVideos(videos);
+        }
       }
     };
 
     fetchYoutubeVideos();
-  }, []);
+  }, [courseName]);
 
   const data = useLoaderData();
   const [courseInfo, setCourseInfo] = useState(null);
   const [courseNumber, setCourseNumber] = useState(0);
-  const [courseName, setCourseName] = useState("");
   const [reviews, setReviews] = useState([]);
   const [youtubeVideos, setYoutubeVideos] = useState([]);
 
@@ -131,15 +136,18 @@ const CoursePage = () => {
         <br/>
 
         {/*relevant videos from YouTube*/}
-        <div className="ms-2 me-3 fw-bold">Relevant Videos from YouTube</div>
-        <YoutubeVideoResult youtubeVideos={youtubeVideos}/>
+        <div className="ms-2 me-3 fw-bold">Relevant Videos on YouTube</div>
+          {youtubeVideos.length === 0 ? (
+              <div className="ms-3 me-3 fw-normal">No relevant videos on YouTube yet</div>
+          ) : <YoutubeVideoResult youtubeVideos={youtubeVideos}/>
+          }
         <br/>
 
         {/*student review(s) from our server*/}
         <div className="ms-2 me-3 fw-bold">Student Review(s)</div>
         <div className="fs-1 justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
-            <div>Be the first one to review course {courseNumber}</div>
+            <div className="ms-3 me-3 fw-normal">Be the first one to review course {courseNumber}</div>
           ) : (
             reviews.map((review) => <ReviewCard review={review} />)
           )}
