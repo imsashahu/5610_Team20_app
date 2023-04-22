@@ -117,8 +117,8 @@ const AddReview = () => {
             {!isLoading &&
               data.map((course) => {
                 return (
-                  <option value={course.courseNumber}>
-                    {course.courseNumber}
+                  <option value={course}>
+                    {course.toString()}
                   </option>
                 );
               })}
