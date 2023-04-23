@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Form } from "react-router-dom";
 import Header from "../header";
 import YoutubeVideoResult from "../youtube-video-result";
 import CourseReviewResult from "../course-review-result";
-import {useDispatch, useSelector} from "react-redux";
-import {profileThunk} from "../../services/users/users-thunks";
+import { useDispatch, useSelector } from "react-redux";
+import { profileThunk } from "../../services/users/users-thunks";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState();
@@ -50,7 +50,7 @@ const Search = () => {
         {/* course reviews */}
         <CourseReviewResult courseReviews={courseReviews} />
         {/* youtube videos */}
-        <YoutubeVideoResult youtubeVideos={youtubeVideos} />
+        {/* <YoutubeVideoResult youtubeVideos={youtubeVideos} /> */}
       </div>
     </>
   );

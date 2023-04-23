@@ -86,10 +86,10 @@ const router = createBrowserRouter(
         }}
       />
       <Route path="/profile/edit-profile" element={<EditProfile />} />
-      <Route
+      {/* <Route
         path="/youtube/:searchTermInPath"
         element={<YoutubeVideoSearchResult searchTerm={"fly in the web"} />}
-      />
+      /> */}
     </>
   )
 );
