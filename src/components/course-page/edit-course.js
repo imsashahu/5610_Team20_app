@@ -71,7 +71,7 @@ const EditCourse = () => {
   return (
     <div>
       <Header />
-      <div className="container">
+      <div className="container mb-4">
         <div className="row mb-2 d-flex justify-content-between">
           <div className="w-auto mt-2">
             <button className="btn btn-warning" onClick={() => navigate(-1)}>
@@ -152,7 +152,7 @@ const EditCourse = () => {
               }}
             />
             <button
-              className="btn btn-primary"
+              className="btn btn-warning mt-2"
               onClick={() => {
                 const updateData = {
                   professors: [...professors, newInstructor],
