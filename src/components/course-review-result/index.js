@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { isEmpty } from "../../utils";
 
 const CourseReviewResult = ({ courseReviews }) => {
