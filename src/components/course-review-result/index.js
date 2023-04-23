@@ -27,6 +27,7 @@ const CourseReviewResult = ({ courseReviews }) => {
                 }}
                 style={{
                   cursor: "pointer",
+                  textAlign: "center",
                 }}
               >
                 <td>{course.courseNumber}</td>
