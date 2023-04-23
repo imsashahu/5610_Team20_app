@@ -136,7 +136,7 @@ const EditCourse = () => {
         </div>
         {!isAddingNewInstructor && (
           <button
-            className="btn btn-primary"
+            className="btn btn-warning"
             onClick={() => setIsAddingNewInstructor(true)}
           >
             Add an instructor
@@ -160,8 +160,9 @@ const EditCourse = () => {
                 };
                 axios
                   .put(
-                    `${process.env.BASE_API}/courses/${courseNumber}` ||
-                      `http://localhost:4001/courses/${courseNumber}`,
+                    process.env.BASE_API
+                      ? `${process.env.BASE_API}/courses/${courseNumber}`
+                      : `http://localhost:4001/courses/${courseNumber}`,
                     updateData
                   )
                   .then(() => {
