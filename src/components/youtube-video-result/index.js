@@ -7,7 +7,7 @@ const YoutubeVideoResult = ({ youtubeVideos }) => {
   return (
     <>
       {!isEmpty(youtubeVideos) && (
-        <table className="table table-hover">
+        <table className="table table-hover fs-6">
           <thead>
             <tr key="youbute-videos-table-head">
               <th scope="col">Author</th>
