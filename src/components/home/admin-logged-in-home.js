@@ -5,9 +5,11 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import CourseList from "./course-list";
 
+const debug = false;
+
 const AdminLoggedInHome = () => {
   const { currentUser } = useSelector((state) => state.users);
-  console.log("currentUser", currentUser);
+  debug && console.log("currentUser", currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileThunk());
@@ -21,7 +23,7 @@ const AdminLoggedInHome = () => {
           : "http://localhost:4001/api/users"
       )
       .then((response) => {
-        console.log("Loding data use react-query", response.data);
+        debug && console.log("Loding data use react-query", response.data);
         return response.data;
       });
   });
