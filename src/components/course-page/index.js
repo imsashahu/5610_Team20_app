@@ -27,7 +27,10 @@ const CoursePage = () => {
   useEffect(() => {
     dispatch(profileThunk());
     axios
-      .get(`http://localhost:4001/courses/${courseNumberInPath}`)
+      .get(
+        `${process.env.BASE_API}/courses/${courseNumberInPath}` ||
+          `http://localhost:4001/courses/${courseNumberInPath}`
+      )
       .then((response) => {
         const course = response.data[0];
         setCourseNumber(course.courseNumber);
@@ -46,7 +49,10 @@ const CoursePage = () => {
     if (location.state && location.state.from === "previous-page") {
       // Re-fetch data here
       axios
-        .get(`http://localhost:4001/courses/${courseNumber}`)
+        .get(
+          `${process.env.BASE_API}/courses/${courseNumber}` ||
+            `http://localhost:4001/courses/${courseNumber}`
+        )
         .then((response) => {
           const course = response.data[0];
           setCourseNumber(course.courseNumber);
@@ -144,7 +150,7 @@ const CoursePage = () => {
         <br />
 
         {/*relevant videos from YouTube*/}
-        <div className="ms-2 me-3 fw-bold">Relevant Videos on YouTube</div>
+        <div className="ms-2 me-3 fw-bold fs-4">Relevant Videos on YouTube</div>
         {youtubeVideos.length === 0 ? (
           <div className="ms-3 me-3 fw-normal">
             No relevant videos on YouTube yet
@@ -155,7 +161,7 @@ const CoursePage = () => {
         <br />
 
         {/*student review(s) from our server*/}
-        <div className="ms-2 me-3 fw-bold">Student Review(s)</div>
+        <div className="ms-2 me-3 fw-bold fs-4">Student Review(s)</div>
         <div className="fs-1 justify-content-around align-items-center mt-4">
           {reviews.length === 0 ? (
             <div className="ms-3 me-3 fw-normal">

@@ -15,6 +15,22 @@ export const getYoutubeVideos = async (debug, searchTerm) => {
     .then((response) => {
       debug && console.log("[getYoutubeVideos]", response.data.items);
       return response;
+    });
+};
+
+export const searchYoutubeVideosBySearchTerm = async (searchTerm) => {
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchTerm}&key=${apiKey}`;
+  console.log("[getYoutubeVideos] searchTerm", searchTerm);
+  return axios
+    .get(apiUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("[getYoutubeVideos]", response.data.items);
+      return response;
     })
     .catch((error) => {
       console.error(error);

@@ -12,7 +12,10 @@ const ProfilePosts = () => {
   const [posts, setPosts] = useState();
   useEffect(() => {
     axios
-      .get(`http://localhost:4001/reviews/${currentUser._id}`)
+      .get(
+        `${process.env.BASE_API}/reviews/${currentUser._id}` ||
+          `http://localhost:4001/reviews/${currentUser._id}`
+      )
       .then((posts) => {
         setPosts(posts);
         return posts;

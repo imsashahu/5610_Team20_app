@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { isEmpty } from "../../utils";
 
 const CourseReviewResult = ({ courseReviews }) => {
@@ -29,11 +29,7 @@ const CourseReviewResult = ({ courseReviews }) => {
                   cursor: "pointer",
                 }}
               >
-                {/* <Link
-                  to={`/details/${course.courseNumber}`}
-                  className="text-dark"
-                > */}
-                <td scope="row">{course.courseNumber}</td>
+                <td>{course.courseNumber}</td>
                 <td>{course.courseName}</td>
                 <td>{course.professors[0]}</td>
                 <td style={{ textAlign: "center" }}>

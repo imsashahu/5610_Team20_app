@@ -33,7 +33,10 @@ const EditCourse = () => {
   useEffect(() => {
     dispatch(profileThunk());
     axios
-      .get(`http://localhost:4001/courses/${courseNumberInPath}`)
+      .get(
+        `${process.env.BASE_API}/courses/${courseNumberInPath}` ||
+          `http://localhost:4001/courses/${courseNumberInPath}`
+      )
       .then((response) => {
         console.log("Loding data use react-query", response.data);
         const course = response.data[0];
@@ -57,7 +60,11 @@ const EditCourse = () => {
       description,
       currentUser,
     };
-    axios.put(`http://localhost:4001/courses/${courseNumber}`, updateData);
+    axios.put(
+      `${process.env.BASE_API}/courses/${courseNumber}` ||
+        `http://localhost:4001/courses/${courseNumber}`,
+      updateData
+    );
   };
 
   return (
@@ -151,7 +158,8 @@ const EditCourse = () => {
                 };
                 axios
                   .put(
-                    `http://localhost:4001/courses/${courseNumber}`,
+                    `${process.env.BASE_API}/courses/${courseNumber}` ||
+                      `http://localhost:4001/courses/${courseNumber}`,
                     updateData
                   )
                   .then(() => {

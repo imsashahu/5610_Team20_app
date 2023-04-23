@@ -13,7 +13,10 @@ const ReviewCard = ({ review }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   useEffect(() => {
     axios
-      .get(`http://localhost:4001/api/users/id/${review.postedBy}`)
+      .get(
+        `${process.env.BASE_API}/api/users/id/${review.postedBy}` ||
+          `http://localhost:4001/api/users/id/${review.postedBy}`
+      )
       .then((user) => {
         setUser(user);
         return user;

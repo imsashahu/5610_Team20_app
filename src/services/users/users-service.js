@@ -1,5 +1,6 @@
 import axios from "axios";
-const USERS_API_URL = "http://localhost:4001/api/users";
+const USERS_API_URL =
+  `${process.env.BASE_API}/api/users` || "http://localhost:4001/api/users";
 
 // configure axios to support cookies for passing credentials
 const api = axios.create({ withCredentials: true });
