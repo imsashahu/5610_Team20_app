@@ -19,7 +19,8 @@ import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
 import { search } from "fontawesome";
 import { QueryClient, QueryClientProvider } from "react-query";
-import {getYoutubeVideos} from "./utils";
+import { getYoutubeVideos } from "./utils";
+import YoutubeVideoSearchResult from "./components/youtube-video-search-result";
 
 const debug = false;
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter(
         }}
       />
       <Route path="/profile/edit-profile" element={<EditProfile />} />
+      <Route
+        path="/youtube/:searchTermInPath"
+        element={<YoutubeVideoSearchResult searchTerm={"fly in the web"} />}
+      />
     </>
   )
 );
