@@ -50,7 +50,10 @@ const AddReview = () => {
 
   const { isLoading, error, data } = useQuery("profile", async () => {
     return axios
-      .get("http://localhost:4001/all-course-numbers")
+      .get(
+        `${process.env.BASE_API}/all-course-numbers` ||
+          "http://localhost:4001/all-course-numbers"
+      )
       .then((response) => {
         console.log("Loding data use react-query", response.data);
         return response.data;
@@ -116,11 +119,7 @@ const AddReview = () => {
             </option>
             {!isLoading &&
               data.map((course) => {
-                return (
-                  <option value={course}>
-                    {course.toString()}
-                  </option>
-                );
+                return <option value={course}>{course.toString()}</option>;
               })}
           </select>
         </div>

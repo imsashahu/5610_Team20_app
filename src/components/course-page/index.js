@@ -27,7 +27,10 @@ const CoursePage = () => {
   useEffect(() => {
     dispatch(profileThunk());
     axios
-      .get(`http://localhost:4001/courses/${courseNumberInPath}`)
+      .get(
+        `${process.env.BASE_API}/courses/${courseNumberInPath}` ||
+          `http://localhost:4001/courses/${courseNumberInPath}`
+      )
       .then((response) => {
         const course = response.data[0];
         setCourseNumber(course.courseNumber);
@@ -46,7 +49,10 @@ const CoursePage = () => {
     if (location.state && location.state.from === "previous-page") {
       // Re-fetch data here
       axios
-        .get(`http://localhost:4001/courses/${courseNumber}`)
+        .get(
+          `${process.env.BASE_API}/courses/${courseNumber}` ||
+            `http://localhost:4001/courses/${courseNumber}`
+        )
         .then((response) => {
           const course = response.data[0];
           setCourseNumber(course.courseNumber);
