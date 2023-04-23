@@ -62,8 +62,9 @@ const EditCourse = () => {
       currentUser,
     };
     axios.put(
-      `${process.env.BASE_API}/courses/${courseNumber}` ||
-        `http://localhost:4001/courses/${courseNumber}`,
+      process.env.BASE_API
+        ? `${process.env.BASE_API}/courses/${courseNumber}`
+        : `http://localhost:4001/courses/${courseNumber}`,
       updateData
     );
   };
