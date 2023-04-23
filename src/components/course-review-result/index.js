@@ -29,10 +29,6 @@ const CourseReviewResult = ({ courseReviews }) => {
                   cursor: "pointer",
                 }}
               >
-                {/* <Link
-                  to={`/details/${course.courseNumber}`}
-                  className="text-dark"
-                > */}
                 <td scope="row">{course.courseNumber}</td>
                 <td>{course.courseName}</td>
                 <td>{course.professors[0]}</td>
