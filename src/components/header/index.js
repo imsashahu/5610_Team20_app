@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Form, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../../services/users/users-thunks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -28,19 +30,22 @@ const Header = () => {
               <use xlink:href="#bootstrap" />
             </svg>
           </a> */}
-
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li>
-              <Link to="/" className="nav-link px-2 text-white">
-                Home
-              </Link>
-            </li>
             <li>
               {currentUser && (
                 <Link to="/profile" className="nav-link px-2 text-white">
-                  Profile
+                  Hello {currentUser.username}{" "}
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className="ms-1 me-3"
+                  ></FontAwesomeIcon>
                 </Link>
               )}
+            </li>
+            <li>
+              <Link to="/" className="nav-link px-2 text-white me-1">
+                Home
+              </Link>
             </li>
             <li>
               <Link to="/search" className="nav-link px-2 text-white">

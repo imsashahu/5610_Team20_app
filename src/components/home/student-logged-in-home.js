@@ -15,9 +15,16 @@ const LoggedInHome = () => {
     <>
       {" "}
       <div className="d-flex flex-column justify-content-center align-items-center fs-3 mt-5">
-        <div>Here is a curated list of courses for you</div>
         <CourseList />
-        <div>Take a new course? Review it now!</div>
+        <div>
+          <img
+            src="/images/docs-icon.png"
+            width={48}
+            height={48}
+            className="me-3"
+          />
+          Took a new course? Review it now!
+        </div>
       </div>
     </>
   );

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const SignupComponent = () => {
   const { currentUser } = useSelector((state) => state.users);
+  const [role, setRole] = useState("STUDENT")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -27,7 +28,7 @@ const SignupComponent = () => {
       toast("The email does not follow");
     } else {
       try {
-        dispatch(registerThunk({ username, password, email }));
+        dispatch(registerThunk({ username, password, email, role }));
         // toast("Signed up successfully!")
         navigate("/profile");
       } catch (err) {
@@ -43,9 +44,12 @@ const SignupComponent = () => {
         <div className="form-group mt-3">
           <label>Role</label>
           <br />
-          <select className={"form-control"}>
-            <option value="faculty">FACULTY</option>
-            <option selected value="student">
+          <select className={"form-control"}
+                  onChange={(e) => {
+            setRole(e.target.value);
+          }}>
+            <option value="FACULTY">FACULTY</option>
+            <option selected value={role}>
               STUDENT
             </option>
           </select>
