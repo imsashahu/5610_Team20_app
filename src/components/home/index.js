@@ -33,9 +33,15 @@ const HomeComponent = () => {
         {currentUser && (
           <div className="d-flex flex-column justify-content-center align-items-center fs-3 mt-5">
             <div className="fs-3">
+              <img
+                src="/images/waving-hand.png"
+                width={35}
+                height={35}
+                className="me-2"
+              />
               Welcome back,{` ${currentUser.role.toLowerCase()} `}
               <Link className="text-dark" to="/profile">
-                {currentUser.username}
+                @{currentUser.username}
               </Link>
             </div>
           </div>
@@ -47,7 +53,7 @@ const HomeComponent = () => {
         )}
 
         {/* "PROFESSOR" role */}
-        {currentUser && currentUser.role === "PROFESSOR" && (
+        {currentUser && currentUser.role === "FACULTY" && (
           <ProfessorLoggedInHome />
         )}
 

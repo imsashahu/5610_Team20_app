@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
+import CourseList from "./course-list";
 
 const ProfessorLoggedInHome = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -14,7 +15,16 @@ const ProfessorLoggedInHome = () => {
     <>
       {" "}
       <div className="d-flex flex-column justify-content-center align-items-center fs-3 mt-5">
-        <div>TODO: implement professor logged-in home page</div>
+        <CourseList />
+        <div>
+          <img
+            src="/images/projects-icon.png"
+            width={48}
+            height={48}
+            className="me-3"
+          />
+          Click course in the table above to edit course description!
+        </div>
       </div>
     </>
   );

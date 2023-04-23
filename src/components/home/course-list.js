@@ -36,6 +36,7 @@ const CourseList = () => {
                 }}
                 style={{
                   cursor: "pointer",
+                  textAlign: "right",
                 }}
               >
                 {/* <Link
@@ -44,8 +45,10 @@ const CourseList = () => {
           > */}
                 <td scope="row">{course.courseNumber}</td>
                 <td>{course.courseName}</td>
-                <td style={{ textAlign: "center" }}>{course.averageRate}</td>
-                <td style={{ textAlign: "center" }}>{course.numOfReviews}</td>
+                <td style={{ textAlign: "right" }}>
+                  {course.averageRate.toFixed(1)}
+                </td>
+                <td style={{ textAlign: "right" }}>{course.numOfReviews}</td>
               </tr>
             ))}
           </tbody>
