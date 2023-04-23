@@ -25,6 +25,9 @@ const EditCourse = () => {
   const [instructionalMethods, setInstructionalMethods] = useState("");
   const [description, setDescription] = useState("");
 
+  const [isAddingNewInstructor, setIsAddingNewInstructor] = useState(false);
+  const [newInstructor, setNewInstructor] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -97,7 +100,7 @@ const EditCourse = () => {
 
         {/*Credit Hour*/}
         <div className="form-group">
-          <label className="fs-5 mt-4">Update Credit Hour</label>
+          <label className="fs-5 mt-4">Credit Hour</label>
           <select
             className="form-control"
             value={creditHour}
@@ -115,21 +118,57 @@ const EditCourse = () => {
 
         {/*Instructor*/}
         <div className="form-group">
-          <label className="fs-5 mt-4">Update Instructor</label>
-          <input
-            type="text"
-            className="form-control"
-            onChange={(e) => {
-              const value = e.target.value;
-              const professorList = value.split(",").map((item) => item.trim());
-              setProfessors(professorList);
-            }}
-          />
+          <label className="fs-5 mt-4">Instructor</label>
+          <ul className="list-group list-group-flush">
+            {professors.map((professor) => (
+              <li className="list-group-item">{professor}</li>
+            ))}
+          </ul>
         </div>
+        {!isAddingNewInstructor && (
+          <button
+            className="btn btn-primary"
+            onClick={() => setIsAddingNewInstructor(true)}
+          >
+            Add an instructor
+          </button>
+        )}
+        {isAddingNewInstructor && (
+          <div className="form-group">
+            <label className="fs-5 mt-4">Add an instructor</label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setNewInstructor(e.target.value);
+              }}
+            />
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                const updateData = {
+                  professors: [...professors, newInstructor],
+                };
+                axios
+                  .put(
+                    `http://localhost:4001/courses/${courseNumber}`,
+                    updateData
+                  )
+                  .then(() => {
+                    setProfessors([...professors, newInstructor]);
+                    setNewInstructor("");
+                    setIsAddingNewInstructor(false);
+                  });
+              }}
+            >
+              Confirm adding an instructor
+            </button>
+          </div>
+        )}
 
         {/*Location*/}
         <div className="form-group">
-          <label className="fs-5 mt-4">Update Location</label>
+          <label className="fs-5 mt-4">Location</label>
           <input
             type="text"
             className="form-control"
@@ -143,7 +182,7 @@ const EditCourse = () => {
 
         {/*Instructional Method*/}
         <div className="form-group">
-          <label className="fs-5 mt-4">Update Instructional Method</label>
+          <label className="fs-5 mt-4">Instructional Method</label>
           <input
             type="text"
             className="form-control"
@@ -157,7 +196,7 @@ const EditCourse = () => {
 
         {/*Description*/}
         <div className="form-group">
-          <label className="fs-5 mt-4">Update Description</label>
+          <label className="fs-5 mt-4">Description</label>
           <input
             type="text"
             className="form-control"
