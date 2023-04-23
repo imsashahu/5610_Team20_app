@@ -29,7 +29,7 @@ const CourseReviewResult = ({ courseReviews }) => {
                   cursor: "pointer",
                 }}
               >
-                <td scope="row">{course.courseNumber}</td>
+                <td>{course.courseNumber}</td>
                 <td>{course.courseName}</td>
                 <td>{course.professors[0]}</td>
                 <td style={{ textAlign: "center" }}>
