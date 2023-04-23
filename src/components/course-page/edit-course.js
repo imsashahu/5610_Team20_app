@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useParams,
-  redirect,
-} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginThunk, profileThunk } from "../../services/users/users-thunks";
-import { ToastContainer, toast } from "react-toastify";
-import editCourseService from "../../services/course/course-service.js";
-import { useQuery } from "react-query";
+import { profileThunk } from "../../services/users/users-thunks";
+import { ToastContainer } from "react-toastify";
 import axios from "axios";
+
+const debug = false;
 
 const EditCourse = () => {
   const { courseNumberInPath } = useParams();
@@ -21,12 +15,25 @@ const EditCourse = () => {
   const [courseNumber, setCourseNumber] = useState(0);
   const [creditHour, setCreditHour] = useState(0);
   const [professors, setProfessors] = useState([]);
-  const [locations, setLocations] = useState("");
-  const [instructionalMethods, setInstructionalMethods] = useState("");
+  const [locations, setLocations] = useState([]);
+  const [instructionalMethods, setInstructionalMethods] = useState([]);
   const [description, setDescription] = useState("");
 
+  // add new instructor
   const [isAddingNewInstructor, setIsAddingNewInstructor] = useState(false);
   const [newInstructor, setNewInstructor] = useState("");
+
+  // add new location
+  const [isAddingNewLocation, setIsAddingNewLocation] = useState(false);
+  const [newLocation, setNewLocation] = useState("");
+
+  // add new instructional method
+  const [isAddingNewInstructionalMethod, setIsAddingNewInstructionalMethod] =
+    useState(false);
+  const [newInstructionalMethod, setNewInstructionalMethod] = useState("");
+
+  const [isSeattleCampusChosen, setIsSeattleCampusChosen] = useState(false);
+  const [isBostonCampusChosen, setIsBostonCampusChosen] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,31 +46,49 @@ const EditCourse = () => {
           : `http://localhost:4001/courses/${courseNumberInPath}`
       )
       .then((response) => {
-        console.log("Loding data use react-query", response.data);
+        debug && console.log("Loding data use react-query", response.data);
         const course = response.data[0];
-        console.log("[useEffect] course", course);
+        debug && console.log("[useEffect] course", course);
         setCourseNumber(course.courseNumber);
         setCreditHour(course.creditHour);
         setProfessors(course.professors);
         setLocations(course.locations);
+        course.locations.forEach((location) => {
+          if (location === "Seattle") setIsSeattleCampusChosen(true);
+          else if (location === "Boston") setIsBostonCampusChosen(true);
+        });
         setInstructionalMethods(course.instructionalMethods);
         setDescription(course.description);
       });
   }, []);
 
+  const newLocations = (l) => {
+    l.filter((location) => {
+      if (isSeattleCampusChosen) {
+        return location !== "Seattle";
+      }
+    }).filter((location) => {
+      if (isBostonCampusChosen) {
+        return location !== "Boston";
+      }
+    });
+  };
+
   const updateCourse = async () => {
+    const newL = newLocations(locations);
     const updateData = {
       courseNumber,
       creditHour,
       professors,
-      locations,
+      newL,
       instructionalMethods,
       description,
       currentUser,
     };
     axios.put(
-      `${process.env.BASE_API}/courses/${courseNumber}` ||
-        `http://localhost:4001/courses/${courseNumber}`,
+      process.env.BASE_API
+        ? `${process.env.BASE_API}/courses/${courseNumber}`
+        : `http://localhost:4001/courses/${courseNumber}`,
       updateData
     );
   };
@@ -92,7 +117,7 @@ const EditCourse = () => {
                   //   className: "custom-toast",
                   // });
                 } else if (!currentUser) {
-                  console.log("Current user is null!");
+                  debug && console.log("Current user is null!");
                   navigate(`/details/${courseNumber}`);
                 } else {
                   updateCourse().then(() => {
@@ -135,7 +160,7 @@ const EditCourse = () => {
         </div>
         {!isAddingNewInstructor && (
           <button
-            className="btn btn-primary"
+            className="btn btn-warning"
             onClick={() => setIsAddingNewInstructor(true)}
           >
             Add an instructor
@@ -159,8 +184,9 @@ const EditCourse = () => {
                 };
                 axios
                   .put(
-                    `${process.env.BASE_API}/courses/${courseNumber}` ||
-                      `http://localhost:4001/courses/${courseNumber}`,
+                    process.env.BASE_API
+                      ? `${process.env.BASE_API}/courses/${courseNumber}`
+                      : `http://localhost:4001/courses/${courseNumber}`,
                     updateData
                   )
                   .then(() => {
@@ -178,30 +204,146 @@ const EditCourse = () => {
         {/*Location*/}
         <div className="form-group">
           <label className="fs-5 mt-4">Location</label>
+          <ul className="list-group list-group-flush">
+            {locations.map((location) => (
+              <li className="list-group-item">{location}</li>
+            ))}
+          </ul>
+        </div>
+
+        {/* <div class="form-check form-check-inline">
           <input
-            type="text"
-            className="form-control"
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="option1"
+            checked={isSeattleCampusChosen}
             onChange={(e) => {
-              const value = e.target.value;
-              const locationList = value.split(",").map((item) => item.trim());
-              setLocations(locationList);
+              setIsSeattleCampusChosen(e.target.checked);
             }}
           />
+          <label class="form-check-label" for="inlineCheckbox1">
+            Seattle
+          </label>
         </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox2"
+            value="option2"
+            checked={isBostonCampusChosen}
+            onChange={(e) => {
+              setIsBostonCampusChosen(e.target.checked);
+            }}
+          />
+          <label class="form-check-label" for="inlineCheckbox2">
+            Boston
+          </label>
+        </div> */}
+
+        {!isAddingNewLocation && (
+          <button
+            className="btn btn-warning"
+            onClick={() => setIsAddingNewLocation(true)}
+          >
+            Add a location
+          </button>
+        )}
+        {isAddingNewLocation && (
+          <div className="form-group">
+            <label className="fs-5 mt-4">Add an location</label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setNewLocation(e.target.value);
+              }}
+            />
+            <button
+              className="btn btn-warning mt-2"
+              onClick={() => {
+                const updateData = {
+                  locations: [...locations, newLocation],
+                };
+                axios
+                  .put(
+                    process.env.BASE_API
+                      ? `${process.env.BASE_API}/courses/${courseNumber}`
+                      : `http://localhost:4001/courses/${courseNumber}`,
+                    updateData
+                  )
+                  .then(() => {
+                    setLocations([...locations, newLocation]);
+                    setNewLocation("");
+                    setIsAddingNewLocation(false);
+                  });
+              }}
+            >
+              Confirm adding a location
+            </button>
+          </div>
+        )}
 
         {/*Instructional Method*/}
         <div className="form-group">
           <label className="fs-5 mt-4">Instructional Method</label>
-          <input
-            type="text"
-            className="form-control"
-            onChange={(e) => {
-              const value = e.target.value;
-              const methodList = value.split(",").map((item) => item.trim());
-              setInstructionalMethods(methodList);
-            }}
-          />
+          <ul className="list-group list-group-flush">
+            {instructionalMethods.map((instructionalMethod) => (
+              <li className="list-group-item">{instructionalMethod}</li>
+            ))}
+          </ul>
         </div>
+        {!isAddingNewInstructionalMethod && (
+          <button
+            className="btn btn-warning"
+            onClick={() => {
+              setIsAddingNewInstructionalMethod(true);
+            }}
+          >
+            Add an instructional method
+          </button>
+        )}
+        {isAddingNewInstructionalMethod && (
+          <div className="form-group">
+            <label className="fs-5 mt-4">Add an instructional method</label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setNewInstructionalMethod(e.target.value);
+              }}
+            />
+            <button
+              className="btn btn-warning mt-2"
+              onClick={() => {
+                const updateData = {
+                  instructionalMethods: [
+                    ...instructionalMethods,
+                    newInstructionalMethod,
+                  ],
+                };
+                axios
+                  .put(
+                    process.env.BASE_API
+                      ? `${process.env.BASE_API}/courses/${courseNumber}`
+                      : `http://localhost:4001/courses/${courseNumber}`,
+                    updateData
+                  )
+                  .then(() => {
+                    setInstructionalMethods([
+                      ...instructionalMethods,
+                      newInstructionalMethod,
+                    ]);
+                    setNewInstructionalMethod("");
+                    setIsAddingNewInstructionalMethod(false);
+                  });
+              }}
+            >
+              Confirm adding an instructional method
+            </button>
+          </div>
+        )}
 
         {/*Description*/}
         <div className="form-group">
