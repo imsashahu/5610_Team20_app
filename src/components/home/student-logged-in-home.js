@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
 import CourseList from "./course-list";
 
+const debug = false;
+
 const LoggedInHome = () => {
   const { currentUser } = useSelector((state) => state.users);
-  console.log("currentUser", currentUser);
+  debug && console.log("currentUser", currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileThunk());

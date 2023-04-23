@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import AdminLoggedInHome from "./admin-logged-in-home";
 import ProfessorLoggedInHome from "./professor-logged-in-home";
 
+const debug = false;
+
 const HomeComponent = () => {
   /*
   1. No user is logged in. Show the logged out home page.
@@ -16,7 +18,7 @@ const HomeComponent = () => {
   4. A professor is logged in. Show the professor logged in home page.
   */
   const { currentUser } = useSelector((state) => state.users);
-  console.log("currentUser role", currentUser);
+  debug && console.log("currentUser role", currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileThunk());

@@ -3,12 +3,15 @@ import { useQuery } from "react-query";
 import { searchYoutubeVideosBySearchTerm } from "../../utils";
 
 const YoutubeVideoSearchResult = ({ searchTerm }) => {
-  const { isLoading, error, data } = useQuery("profile", async () => {
-    const res = searchYoutubeVideosBySearchTerm(searchTerm);
-    console.log("[YoutubeVideoSearchResult] searchTerm", searchTerm);
-    console.log("[YoutubeVideoSearchResult] res", res);
-    return res;
-  });
+  const { isLoading, error, data } = useQuery(
+    "youtube-video-search-result",
+    async () => {
+      const res = searchYoutubeVideosBySearchTerm(searchTerm);
+      console.log("[YoutubeVideoSearchResult] searchTerm", searchTerm);
+      console.log("[YoutubeVideoSearchResult] res", res);
+      return res;
+    }
+  );
 
   console.log("error", error);
 
