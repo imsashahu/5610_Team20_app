@@ -32,6 +32,9 @@ const EditCourse = () => {
     useState(false);
   const [newInstructionalMethod, setNewInstructionalMethod] = useState("");
 
+  const [isSeattleCampusChosen, setIsSeattleCampusChosen] = useState(false);
+  const [isBostonCampusChosen, setIsBostonCampusChosen] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -50,17 +53,34 @@ const EditCourse = () => {
         setCreditHour(course.creditHour);
         setProfessors(course.professors);
         setLocations(course.locations);
+        course.locations.forEach((location) => {
+          if (location === "Seattle") setIsSeattleCampusChosen(true);
+          else if (location === "Boston") setIsBostonCampusChosen(true);
+        });
         setInstructionalMethods(course.instructionalMethods);
         setDescription(course.description);
       });
   }, []);
 
+  const newLocations = (l) => {
+    l.filter((location) => {
+      if (isSeattleCampusChosen) {
+        return location !== "Seattle";
+      }
+    }).filter((location) => {
+      if (isBostonCampusChosen) {
+        return location !== "Boston";
+      }
+    });
+  };
+
   const updateCourse = async () => {
+    const newL = newLocations(locations);
     const updateData = {
       courseNumber,
       creditHour,
       professors,
-      locations,
+      newL,
       instructionalMethods,
       description,
       currentUser,
@@ -190,6 +210,38 @@ const EditCourse = () => {
             ))}
           </ul>
         </div>
+
+        {/* <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="option1"
+            checked={isSeattleCampusChosen}
+            onChange={(e) => {
+              setIsSeattleCampusChosen(e.target.checked);
+            }}
+          />
+          <label class="form-check-label" for="inlineCheckbox1">
+            Seattle
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox2"
+            value="option2"
+            checked={isBostonCampusChosen}
+            onChange={(e) => {
+              setIsBostonCampusChosen(e.target.checked);
+            }}
+          />
+          <label class="form-check-label" for="inlineCheckbox2">
+            Boston
+          </label>
+        </div> */}
+
         {!isAddingNewLocation && (
           <button
             className="btn btn-warning"
@@ -245,7 +297,9 @@ const EditCourse = () => {
         {!isAddingNewInstructionalMethod && (
           <button
             className="btn btn-warning"
-            onClick={() => setIsAddingNewInstructionalMethod(true)}
+            onClick={() => {
+              setIsAddingNewInstructionalMethod(true);
+            }}
           >
             Add an instructional method
           </button>
