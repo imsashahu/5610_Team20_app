@@ -5,7 +5,7 @@ import {
   profileThunk,
   findUserByIdThunk,
 } from "../../services/users/users-thunks";
-import {deleteReview} from "../../services/reviews/reviews-service";
+import { deleteReview } from "../../services/reviews/reviews-service";
 
 const ReviewCard = ({ review }) => {
   const { currentUser } = useSelector((state) => state.users);
@@ -31,9 +31,7 @@ const ReviewCard = ({ review }) => {
           style={{ width: "100%" }}
         >
           <div className="card-header" style={{ fontSize: "15px" }}>
-            <div
-              className="card-text d-flex justify-content-between"
-            >
+            <div className="card-text d-flex justify-content-between">
               <span>
                 Prof. {review.professor},{" "}
                 <a
@@ -44,15 +42,14 @@ const ReviewCard = ({ review }) => {
                 </a>
               </span>
 
-              {(currentUser && currentUser.role === "FACULTY") && (
+              {currentUser && currentUser.role === "ADMIN" && (
                 <button
                   className="btn btn-danger"
                   onClick={async () => {
-                      await deleteReview(review);
-                      setIsDeleted(true);
-                    }
-                  }
-                  >
+                    await deleteReview(review);
+                    setIsDeleted(true);
+                  }}
+                >
                   Delete
                 </button>
               )}
@@ -111,12 +108,18 @@ const ReviewCard = ({ review }) => {
               </a>
             )}
             {user && currentUser && user.data._id !== currentUser._id && (
-              <a href={`/profile/${review.postedBy}`} style={{ color: "black" }}>
+              <a
+                href={`/profile/${review.postedBy}`}
+                style={{ color: "black" }}
+              >
                 {user.data.username}
               </a>
             )}
             {user && !currentUser && (
-              <a href={`/profile/${review.postedBy}`} style={{ color: "black" }}>
+              <a
+                href={`/profile/${review.postedBy}`}
+                style={{ color: "black" }}
+              >
                 {user.data.username}
               </a>
             )}
