@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import YoutubeVideoSearchResult from "../youtube-video-search-result";
+import React from "react";
 
 const CourseInfo = ({ course }) => {
   console.log("[CourseInfo] course", course);
