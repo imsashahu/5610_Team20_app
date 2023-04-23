@@ -34,8 +34,9 @@ const EditCourse = () => {
     dispatch(profileThunk());
     axios
       .get(
-        `${process.env.BASE_API}/courses/${courseNumberInPath}` ||
-          `http://localhost:4001/courses/${courseNumberInPath}`
+        process.env.BASE_API
+          ? `${process.env.BASE_API}/courses/${courseNumberInPath}`
+          : `http://localhost:4001/courses/${courseNumberInPath}`
       )
       .then((response) => {
         console.log("Loding data use react-query", response.data);

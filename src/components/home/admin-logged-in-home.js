@@ -16,7 +16,9 @@ const AdminLoggedInHome = () => {
   const { isLoading, error, data } = useQuery("profile", async () => {
     return axios
       .get(
-        `${process.env.BASE_API}/api/users` || "http://localhost:4001/api/users"
+        process.env.BASE_API
+          ? `${process.env.BASE_API}/api/users`
+          : "http://localhost:4001/api/users"
       )
       .then((response) => {
         console.log("Loding data use react-query", response.data);

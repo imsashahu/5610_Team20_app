@@ -8,8 +8,9 @@ const CourseList = () => {
   const { isLoading, error, data } = useQuery("profile", async () => {
     return axios
       .get(
-        `${process.env.BASE_API}/courses/sorted/rate` ||
-          "http://localhost:4001/courses/sorted/rate"
+        process.env.BASE_API
+          ? `${process.env.BASE_API}/courses/sorted/rate`
+          : "http://localhost:4001/courses/sorted/rate"
       )
       .then((response) => {
         console.log("Loding data use react-query", response.data);
