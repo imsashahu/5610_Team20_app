@@ -51,8 +51,9 @@ const AddReview = () => {
   const { isLoading, error, data } = useQuery("profile", async () => {
     return axios
       .get(
-        `${process.env.BASE_API}/all-course-numbers` ||
-          "http://localhost:4001/all-course-numbers"
+        process.env.BASE_API
+          ? `${process.env.BASE_API}/all-course-numbers`
+          : "http://localhost:4001/all-course-numbers"
       )
       .then((response) => {
         console.log("Loding data use react-query", response.data);

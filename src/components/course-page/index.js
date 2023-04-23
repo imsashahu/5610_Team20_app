@@ -28,8 +28,9 @@ const CoursePage = () => {
     dispatch(profileThunk());
     axios
       .get(
-        `${process.env.BASE_API}/courses/${courseNumberInPath}` ||
-          `http://localhost:4001/courses/${courseNumberInPath}`
+        process.env.BASE_API
+          ? `${process.env.BASE_API}/courses/${courseNumberInPath}`
+          : `http://localhost:4001/courses/${courseNumberInPath}`
       )
       .then((response) => {
         const course = response.data[0];
@@ -50,8 +51,9 @@ const CoursePage = () => {
       // Re-fetch data here
       axios
         .get(
-          `${process.env.BASE_API}/courses/${courseNumber}` ||
-            `http://localhost:4001/courses/${courseNumber}`
+          process.env.BASE_API
+            ? `${process.env.BASE_API}/courses/${courseNumber}`
+            : `http://localhost:4001/courses/${courseNumber}`
         )
         .then((response) => {
           const course = response.data[0];
