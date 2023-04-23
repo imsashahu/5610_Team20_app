@@ -15,6 +15,9 @@ export const getYoutubeVideos = async (debug, searchTerm) => {
     .then((response) => {
       debug && console.log("[getYoutubeVideos]", response.data.items);
       return response;
+    })
+    .catch((error) => {
+      console.error(error);
     });
 };
 
