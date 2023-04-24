@@ -17,10 +17,9 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import AddReview from "./components/add-review";
-import { search } from "fontawesome";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { getYoutubeVideos } from "./utils";
-import YoutubeVideoSearchResult from "./components/youtube-video-search-result";
+import AdminEditUser from "./components/admin-edit-all-users/admin-edit-user";
 
 const debug = false;
 
@@ -92,6 +91,7 @@ const router = createBrowserRouter(
         }}
       />
       <Route path="/profile/edit-profile" element={<EditProfile />} />
+      <Route path="/admin/edit-user/:userid" element={<AdminEditUser />} />
       {/* <Route
         path="/youtube/:searchTermInPath"
         element={<YoutubeVideoSearchResult searchTerm={"fly in the web"} />}

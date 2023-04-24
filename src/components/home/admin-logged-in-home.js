@@ -4,6 +4,7 @@ import { profileThunk } from "../../services/users/users-thunks";
 import { useQuery } from "react-query";
 import axios from "axios";
 import CourseList from "./course-list";
+import AdminEditAllUsers from "../admin-edit-all-users";
 
 const debug = false;
 
@@ -43,6 +44,7 @@ const AdminLoggedInHome = () => {
           Click course in the table above to manage each course!
         </div>
       </div>
+      <AdminEditAllUsers />
       {/* All user list */}
       {/* <div>
         <ul className="list-group">
