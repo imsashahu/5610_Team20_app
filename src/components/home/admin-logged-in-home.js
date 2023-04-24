@@ -40,7 +40,7 @@ const AdminLoggedInHome = () => {
             height={48}
             className="me-3"
           />
-          Click course in the table above to manage each course!
+          Click course above to manage course!
         </div>
       </div>
       {/* All user list */}
