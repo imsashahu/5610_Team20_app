@@ -23,7 +23,7 @@ const ProfessorLoggedInHome = () => {
             height={48}
             className="me-3"
           />
-          Click course in the table above to edit course description!
+          Click course above to edit course info!
         </div>
       </div>
     </>
