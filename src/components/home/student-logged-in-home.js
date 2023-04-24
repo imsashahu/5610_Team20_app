@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { profileThunk } from "../../services/users/users-thunks";
 import CourseList from "./course-list";
+import { Link } from "react-router-dom";
 
 const debug = false;
 
@@ -26,6 +27,12 @@ const LoggedInHome = () => {
             className="me-3"
           />
           Took a new course? Review it now!
+        </div>
+        <div>
+          Check your post history at{" "}
+          <Link className="text-dark" to="/profile">
+            Profile
+          </Link>
         </div>
       </div>
     </>

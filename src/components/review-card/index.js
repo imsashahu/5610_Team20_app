@@ -16,8 +16,8 @@ const ReviewCard = ({ review }) => {
   useEffect(() => {
     axios
       .get(
-        process.env.BASE_API
-          ? `${process.env.BASE_API}/api/users/id/${review.postedBy}`
+        process.env.REACT_APP_BASE_API
+          ? `${process.env.REACT_APP_BASE_API}/api/users/id/${review.postedBy}`
           : `http://localhost:4001/api/users/id/${review.postedBy}`
       )
       .then((user) => {

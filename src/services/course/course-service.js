@@ -1,5 +1,6 @@
 import axios from "axios";
-const COURSES_API_URL = process.env.BASE_API || "http://localhost:4001/courses";
+const COURSES_API_URL =
+  `${process.env.BASE_API}/courses` || "http://localhost:4001/courses";
 
 const addReview = async (reviewData) => {
   try {

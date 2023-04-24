@@ -10,8 +10,8 @@ const CourseList = () => {
     async () => {
       return axios
         .get(
-          process.env.BASE_API
-            ? `${process.env.BASE_API}/courses/sorted/rate`
+          process.env.REACT_APP_BASE_API
+            ? `${process.env.REACT_APP_BASE_API}/courses/sorted/rate`
             : "http://localhost:4001/courses/sorted/rate"
         )
         .then((response) => {

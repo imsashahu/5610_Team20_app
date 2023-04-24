@@ -24,8 +24,8 @@ import AdminEditUser from "./components/admin-edit-all-users/admin-edit-user";
 const debug = false;
 
 const getCourseReviews = async (searchTerm) => {
-  let axiosUrl = process.env.BASE_API
-    ? `${process.env.BASE_API}/courses/${searchTerm}`
+  let axiosUrl = process.env.REACT_APP_BASE_API
+    ? `${process.env.REACT_APP_BASE_API}/courses/${searchTerm}`
     : `http://localhost:4001/courses/${searchTerm}`;
   return axios.get(axiosUrl).then((res) => {
     debug && console.log("[getCourseReviews] courses", res.data);
@@ -44,8 +44,8 @@ const router = createBrowserRouter(
         element={<ProfileUID />}
         loader={async ({ params, request }) => {
           debug && console.log("uid", params.uid);
-          let axiosUrl = process.env.BASE_API
-            ? `${process.env.BASE_API}/api/users/id/${params.uid}`
+          let axiosUrl = process.env.REACT_APP_BASE_API
+            ? `${process.env.REACT_APP_BASE_API}/api/users/id/${params.uid}`
             : `http://localhost:4001/api/users/id/${params.uid}`;
           return axios.get(axiosUrl).then((res) => {
             debug && console.log("UID", res.data);
@@ -59,8 +59,8 @@ const router = createBrowserRouter(
         path="/details/:courseNumberInPath"
         element={<CoursePage />}
         loader={async ({ params, request }) => {
-          let axiosUrl = process.env.BASE_API
-            ? `${process.env.BASE_API}/courses/${params.courseNumberInPath}`
+          let axiosUrl = process.env.REACT_APP_BASE_API
+            ? `${process.env.REACT_APP_BASE_API}/courses/${params.courseNumberInPath}`
             : `http://localhost:4001/courses/${params.courseNumberInPath}`;
           return axios.get(axiosUrl).then((res) => {
             debug && console.log("courses", res.data);

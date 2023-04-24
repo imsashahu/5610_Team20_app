@@ -15,10 +15,11 @@ const LoggedOutHome = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center mt-5">
+      <div className="d-flex justify-content-center align-items-center mt-3">
         <img
           src="/images/khoury-college.png"
           className="bg-dark border border-dark border-5"
+          style={{ width: "70%" }}
         />
       </div>
       <Headline />
