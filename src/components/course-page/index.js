@@ -11,6 +11,8 @@ import YoutubeVideoResult from "../youtube-video-result";
 import { getYoutubeVideos } from "../../utils";
 import { useLocation } from "react-router-dom";
 
+const debug = false;
+
 const CoursePage = () => {
   const navigate = useNavigate();
 
@@ -39,10 +41,11 @@ const CoursePage = () => {
         setReviews(course.reviews);
         setCourseInfo(course);
       });
-    console.log(
-      "[fetchYoutubeVideos in course page] trace the change of courseName 1",
-      courseName
-    );
+    debug &&
+      console.log(
+        "[fetchYoutubeVideos in course page] trace the change of courseName 1",
+        courseName
+      );
   }, []);
 
   const location = useLocation();
@@ -62,10 +65,11 @@ const CoursePage = () => {
           setReviews(course.reviews);
           setCourseInfo(course);
         });
-      console.log(
-        "[fetchYoutubeVideos in course page] trace the change of courseName 2",
-        courseName
-      );
+      debug &&
+        console.log(
+          "[fetchYoutubeVideos in course page] trace the change of courseName 2",
+          courseName
+        );
     }
   }, [location]);
 
@@ -76,12 +80,14 @@ const CoursePage = () => {
         courseName !== undefined &&
         courseName !== ""
       ) {
-        console.log(
-          "[fetchYoutubeVideos in course page] trace the change of courseName 3",
-          courseName
-        );
+        debug &&
+          console.log(
+            "[fetchYoutubeVideos in course page] trace the change of courseName 3",
+            courseName
+          );
         const videos = await getYoutubeVideos(false, courseName);
-        console.log("[fetchYoutubeVideos in course page] videos", videos);
+        debug &&
+          console.log("[fetchYoutubeVideos in course page] videos", videos);
         if (videos !== null && videos !== undefined) {
           setYoutubeVideos(videos);
         }
@@ -170,7 +176,9 @@ const CoursePage = () => {
               Be the first one to review course {courseNumber}
             </div>
           ) : (
-            reviews.map((review) => <ReviewCard review={review} />)
+            reviews.map((review) => (
+              <ReviewCard review={review} key={review._id} />
+            ))
           )}
         </div>
       </div>

@@ -62,29 +62,34 @@ const EditCourse = () => {
       });
   }, []);
 
-  const newLocations = (l) => {
-    l.filter((location) => {
-      if (isSeattleCampusChosen) {
-        return location !== "Seattle";
-      }
-    }).filter((location) => {
-      if (isBostonCampusChosen) {
-        return location !== "Boston";
-      }
-    });
-  };
+  // const newLocations = (l) => {
+  //   l.filter((location) => {
+  //     if (isSeattleCampusChosen) {
+  //       return location !== "Seattle";
+  //     }
+  //   }).filter((location) => {
+  //     if (isBostonCampusChosen) {
+  //       return location !== "Boston";
+  //     }
+  //   });
+  // };
+
+  useEffect(() => {
+    updateCourse();
+  }, [professors, locations, instructionalMethods]);
 
   const updateCourse = async () => {
-    const newL = newLocations(locations);
+    // const newL = newLocations(locations);
     const updateData = {
       courseNumber,
       creditHour,
       professors,
-      newL,
+      locations,
       instructionalMethods,
       description,
       currentUser,
     };
+    console.log("locations", locations);
     axios.put(
       process.env.BASE_API
         ? `${process.env.BASE_API}/courses/${courseNumber}`
@@ -153,8 +158,21 @@ const EditCourse = () => {
         <div className="form-group">
           <label className="fs-5 mt-4">Instructor</label>
           <ul className="list-group list-group-flush">
-            {professors.map((professor) => (
-              <li className="list-group-item">{professor}</li>
+            {professors.map((professor, index) => (
+              <li className="list-group-item" key={professor + index}>
+                <div className="d-flex justify-content-head align-items-center">
+                  <button
+                    className="btn btn-danger me-3"
+                    onClick={() => {
+                      setProfessors(professors.filter((p) => p !== professor));
+                      updateCourse();
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <div>{professor}</div>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
@@ -206,41 +224,25 @@ const EditCourse = () => {
           <label className="fs-5 mt-4">Location</label>
           <ul className="list-group list-group-flush">
             {locations.map((location) => (
-              <li className="list-group-item">{location}</li>
+              <li className="list-group-item" key={location}>
+                {" "}
+                <div className="d-flex justify-content-head align-items-center">
+                  <button
+                    className="btn btn-danger me-3"
+                    onClick={() => {
+                      console.log("delete location");
+                      setLocations(locations.filter((l) => l !== location));
+                      updateCourse();
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <div>{location}</div>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
-
-        {/* <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="inlineCheckbox1"
-            value="option1"
-            checked={isSeattleCampusChosen}
-            onChange={(e) => {
-              setIsSeattleCampusChosen(e.target.checked);
-            }}
-          />
-          <label class="form-check-label" for="inlineCheckbox1">
-            Seattle
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="inlineCheckbox2"
-            value="option2"
-            checked={isBostonCampusChosen}
-            onChange={(e) => {
-              setIsBostonCampusChosen(e.target.checked);
-            }}
-          />
-          <label class="form-check-label" for="inlineCheckbox2">
-            Boston
-          </label>
-        </div> */}
 
         {!isAddingNewLocation && (
           <button
@@ -290,7 +292,25 @@ const EditCourse = () => {
           <label className="fs-5 mt-4">Instructional Method</label>
           <ul className="list-group list-group-flush">
             {instructionalMethods.map((instructionalMethod) => (
-              <li className="list-group-item">{instructionalMethod}</li>
+              <li className="list-group-item" key={instructionalMethod}>
+                {" "}
+                <div className="d-flex justify-content-head align-items-center">
+                  <button
+                    className="btn btn-danger me-3"
+                    onClick={() => {
+                      setInstructionalMethods(
+                        instructionalMethods.filter(
+                          (m) => m !== instructionalMethod
+                        )
+                      );
+                      updateCourse();
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <div>{instructionalMethod}</div>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
