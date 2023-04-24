@@ -50,7 +50,7 @@ const Search = () => {
         {/* course reviews */}
         <CourseReviewResult courseReviews={courseReviews} />
         {/* youtube videos */}
-        {/* <YoutubeVideoResult youtubeVideos={youtubeVideos} /> */}
+        <YoutubeVideoResult youtubeVideos={youtubeVideos} />
       </div>
     </>
   );
