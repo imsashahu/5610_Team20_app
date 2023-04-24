@@ -44,7 +44,7 @@ const AdminLoggedInHome = () => {
           Click course above to manage course!
         </div>
       </div>
-      <AdminEditAllUsers />
+      {/* <AdminEditAllUsers /> */}
       {/* All user list */}
       {/* <div>
         <ul className="list-group">
