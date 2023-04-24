@@ -1,7 +1,9 @@
 import React from "react";
 
+const debug = false;
+
 const CourseInfo = ({ course }) => {
-  console.log("[CourseInfo] course", course);
+  debug && console.log("[CourseInfo] course", course);
 
   return (
     <div className="align-items-center mt-4">

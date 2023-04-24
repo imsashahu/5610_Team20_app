@@ -7,6 +7,8 @@ import {
 } from "../../services/users/users-thunks";
 import { deleteReview } from "../../services/reviews/reviews-service";
 
+const debug = false;
+
 const ReviewCard = ({ review }) => {
   const { currentUser } = useSelector((state) => state.users);
   const [user, setUser] = useState();
@@ -24,8 +26,8 @@ const ReviewCard = ({ review }) => {
       });
   }, []);
 
-  console.log("[ReiewCard] currentUser", currentUser);
-  console.log(review);
+  debug && console.log("[ReiewCard] currentUser", currentUser);
+  debug && console.log(review);
 
   return (
     <>
