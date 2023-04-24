@@ -53,8 +53,8 @@ const AddReview = () => {
     async () => {
       return axios
         .get(
-          process.env.BASE_API
-            ? `${process.env.BASE_API}/all-course-numbers`
+          process.env.REACT_APP_BASE_API
+            ? `${process.env.REACT_APP_BASE_API}/all-course-numbers`
             : "http://localhost:4001/all-course-numbers"
         )
         .then((response) => {

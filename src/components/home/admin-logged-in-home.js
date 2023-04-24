@@ -4,6 +4,7 @@ import { profileThunk } from "../../services/users/users-thunks";
 import { useQuery } from "react-query";
 import axios from "axios";
 import CourseList from "./course-list";
+import AdminEditAllUsers from "../admin-edit-all-users";
 
 const debug = false;
 
@@ -18,8 +19,8 @@ const AdminLoggedInHome = () => {
   const { isLoading, error, data } = useQuery("profile", async () => {
     return axios
       .get(
-        process.env.BASE_API
-          ? `${process.env.BASE_API}/api/users`
+        process.env.REACT_APP_BASE_API
+          ? `${process.env.REACT_APP_BASE_API}/api/users`
           : "http://localhost:4001/api/users"
       )
       .then((response) => {
@@ -43,6 +44,7 @@ const AdminLoggedInHome = () => {
           Click course above to manage course!
         </div>
       </div>
+      <AdminEditAllUsers />
       {/* All user list */}
       {/* <div>
         <ul className="list-group">

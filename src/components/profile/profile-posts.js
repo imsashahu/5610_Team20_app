@@ -13,8 +13,8 @@ const ProfilePosts = () => {
   useEffect(() => {
     axios
       .get(
-        process.env.BASE_API
-          ? `${process.env.BASE_API}/reviews/${currentUser._id}`
+        process.env.REACT_APP_BASE_API
+          ? `${process.env.REACT_APP_BASE_API}/reviews/${currentUser._id}`
           : `http://localhost:4001/reviews/${currentUser._id}`
       )
       .then((posts) => {

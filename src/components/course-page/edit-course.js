@@ -41,8 +41,8 @@ const EditCourse = () => {
     dispatch(profileThunk());
     axios
       .get(
-        process.env.BASE_API
-          ? `${process.env.BASE_API}/courses/${courseNumberInPath}`
+        process.env.REACT_APP_BASE_API
+          ? `${process.env.REACT_APP_BASE_API}/courses/${courseNumberInPath}`
           : `http://localhost:4001/courses/${courseNumberInPath}`
       )
       .then((response) => {
@@ -91,8 +91,8 @@ const EditCourse = () => {
     };
     console.log("locations", locations);
     axios.put(
-      process.env.BASE_API
-        ? `${process.env.BASE_API}/courses/${courseNumber}`
+      process.env.REACT_APP_BASE_API
+        ? `${process.env.REACT_APP_BASE_API}/courses/${courseNumber}`
         : `http://localhost:4001/courses/${courseNumber}`,
       updateData
     );
@@ -202,8 +202,8 @@ const EditCourse = () => {
                 };
                 axios
                   .put(
-                    process.env.BASE_API
-                      ? `${process.env.BASE_API}/courses/${courseNumber}`
+                    process.env.REACT_APP_BASE_API
+                      ? `${process.env.REACT_APP_BASE_API}/courses/${courseNumber}`
                       : `http://localhost:4001/courses/${courseNumber}`,
                     updateData
                   )
@@ -270,8 +270,8 @@ const EditCourse = () => {
                 };
                 axios
                   .put(
-                    process.env.BASE_API
-                      ? `${process.env.BASE_API}/courses/${courseNumber}`
+                    process.env.REACT_APP_BASE_API
+                      ? `${process.env.REACT_APP_BASE_API}/courses/${courseNumber}`
                       : `http://localhost:4001/courses/${courseNumber}`,
                     updateData
                   )
@@ -345,8 +345,8 @@ const EditCourse = () => {
                 };
                 axios
                   .put(
-                    process.env.BASE_API
-                      ? `${process.env.BASE_API}/courses/${courseNumber}`
+                    process.env.REACT_APP_BASE_API
+                      ? `${process.env.REACT_APP_BASE_API}/courses/${courseNumber}`
                       : `http://localhost:4001/courses/${courseNumber}`,
                     updateData
                   )
