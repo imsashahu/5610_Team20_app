@@ -1,6 +1,7 @@
 import axios from "axios";
 const COURSES_API_URL =
-  `${process.env.BASE_API}/courses` || "http://localhost:4001/courses";
+  `${process.env.REACT_APP_BASE_API}/courses` ||
+  "http://localhost:4001/courses";
 
 export const addReview = async (reviewData) => {
   try {

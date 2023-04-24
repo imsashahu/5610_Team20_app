@@ -18,8 +18,8 @@ const AdminLoggedInHome = () => {
   const { isLoading, error, data } = useQuery("profile", async () => {
     return axios
       .get(
-        process.env.BASE_API
-          ? `${process.env.BASE_API}/api/users`
+        process.env.REACT_APP_BASE_API
+          ? `${process.env.REACT_APP_BASE_API}/api/users`
           : "http://localhost:4001/api/users"
       )
       .then((response) => {

@@ -1,6 +1,6 @@
 import axios from "axios";
-const USERS_API_URL = process.env.BASE_API
-  ? `${process.env.BASE_API}/api/users`
+const USERS_API_URL = process.env.REACT_APP_BASE_API
+  ? `${process.env.REACT_APP_BASE_API}/api/users`
   : "http://localhost:4001/api/users";
 
 // configure axios to support cookies for passing credentials
